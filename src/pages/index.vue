@@ -57,7 +57,7 @@ const switchTheme = () => {
       Tailia Malloy
     </h1>
     <h3>
-      Site Under Construction
+      Site Under Construction...
     </h3>
   </main>
 </template>
