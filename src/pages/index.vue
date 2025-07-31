@@ -56,6 +56,9 @@ const switchTheme = () => {
     <h1 class="pb-20 text-center text-6xl text-gray-700 transition-colors dark:text-gray-100">
       Tailia Malloy
     </h1>
+    <h3>
+      Site Under Construction
+    </h3>
   </main>
 </template>
 
