@@ -1,69 +1,76 @@
 <script setup>
 // @ts-ignore
-defineOptions({ name: 'HomePage' })
-const switchTheme = () => {
-  document.documentElement.classList.toggle('dark');
-};
+import Header from '@/components/header.vue'
+import Particles from "@/components/particles.vue";
+
+// Dynamically load all project pages in src/pages/projects/*.vue
+// Each project page should export a `meta` named export with { title, image, description }
+const projectModules = import.meta.glob('./projects/*.vue', { eager: true })
+const projects = Object.entries(projectModules).map(([path, mod]) => {
+  const name = path.split('/').pop().replace('.vue', '')
+  const meta = mod.meta || mod.default?.meta || {}
+  const title = meta.title || name.replace(/[-_]/g, ' ')
+  let image = meta.image || meta.thumbnail || null
+  if (image && image.default) image = image.default
+  const description = meta.description || ''
+  const route = `/projects/${name}`
+  return { name, title, image, description, route }
+})
+
+defineOptions({ 
+  name: 'HomePage'
+})
 </script>
 
 <template>
-  <header class="absolute inset-x-0 top-0">
-    <div class="container mx-auto flex justify-end p-4">
-      <button class="overflow-hidden p-2" 
-      @click="switchTheme">
-        <transition
-          enter-active-class="transition duration-200 ease-out"
-          leave-active-class="transition duration-200 ease-in"
-          :enter-from-class="currentTheme === 'dark' ? 'transform -translate-y-full scale-50 opacity-0' : 'transform translate-y-full scale-50 opacity-0'"
-          enter-to-class="transform translate-y-0"
-          leave-from-class="transform translate-y-0"
-          :leave-to-class="currentTheme === 'dark' ? 'transform translate-y-full scale-50 opacity-0' : 'transform -translate-y-full scale-50 opacity-0'"
-          mode="out-in"
-        >
-          <svg
-            v-if="currentTheme === 'dark'"
-            xmlns="http://www.w3.org/2000/svg"
-            class="size-8"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-          >
-            <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-          </svg>
+  <div class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-50">
+    <Header />
 
-          <svg
-            v-else
-            xmlns="http://www.w3.org/2000/svg"
-            class="size-8"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-          >
-            <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-          </svg>
-        </transition>
-      </button>
-    </div>
-  </header>
+    <Particles>
+      <main class="relative z-10 mx-auto flex h-full max-w-3xl flex-col items-center justify-center px-4 py-16 particles-slot-content">
+        <h1 class="relative pb-20 text-center text-6xl text-gray-700 transition-colors dark:text-gray-100" style="padding-bottom:50vh; font-size:50pt">
+          Tailia Malloy
+        </h1>
 
-  <main class="mx-auto flex h-screen max-w-3xl flex-col items-center justify-center px-4 py-16">
-    <h1 class="pb-20 text-center text-6xl text-gray-700 transition-colors dark:text-gray-100">
-      Tailia Malloy
-    </h1>
-    <h3>
-      Site Under Construction
-    </h3>
-  </main>
+        <h2 class="absolute pb-20 text-center text-6xl text-gray-700 transition-colors dark:text-gray-100" style="padding-bottom:25vh; font-size:25pt">
+          Human and Machine Learning Research
+        </h2>
+      </main>
+    </Particles>
+    
+    <!-- About section (anchor target) -->
+    <section id="about" class="container mx-auto px-4 py-20">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-3xl font-semibold">About</h1>
+        <p class="mt-6 text-gray-600 dark:text-gray-300 leading-relaxed">
+          Hello! My name is Tailia Malloy. I am a researcher in human and machine learning. I am currently a postdoctoral researcher at the University of Luxembourg working under the advisement of <a href="https://scholar.google.com/citations?user=t73Mqm8AAAAJ&hl=en&oi=ao" target="_blank" rel="noopener" class="text-blue-600 hover:underline"> Professor Tegawendé F. Bissyandé</a> studying Human-Computer Interaction with a focus on LLM applications in software engineering and human resources. This is a joint research effort between the private HR technology company <a href="https://zortify.com/labs/" target="_blank" rel="noopener" class="text-blue-600 hover:underline">Zortify</a> and the <a href="https://www.uni.lu/snt-en/research-groups/trux/" target="_blank" rel="noopener" class="text-blue-600 hover:underline">Trustworthy Software Engineering (TruX) Lab</a>.
+        </p>
+      </div>
+    </section>
+
+    <!-- Projects section (anchor target) -->
+    <section id="projects" class="container mx-auto px-4 py-20">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl font-semibold text-center">Projects</h2>
+        <p class="mt-4 text-center text-gray-600 dark:text-gray-300">Visit back later for more information on my personal projects.</p>
+
+        <div class="mt-10 grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          <template v-for="proj in projects" :key="proj.name">
+            <article class="bg-white dark:bg-gray-800 shadow rounded overflow-hidden">
+              <a :href="proj.route" class="block">
+                <div class="w-full h-48 bg-gray-200 dark:bg-gray-700 flex items-center justify-center overflow-hidden">
+                  <img v-if="proj.image" :src="proj.image" :alt="proj.title" class="w-full h-full object-cover" />
+                  <div v-else class="text-gray-500">No image</div>
+                </div>
+              </a>
+              <div class="p-4">
+                <h3 class="text-lg font-semibold"><a :href="proj.route" class="hover:underline">{{ proj.title }}</a></h3>
+                <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">{{ proj.description }}</p>
+              </div>
+            </article>
+          </template>
+        </div>
+      </div>
+    </section>
+  </div>
 </template>
-
-<style>
-body {
-  @apply dark:bg-gray-900 dark:text-gray-50;
-}
-</style>
