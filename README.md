@@ -50,3 +50,18 @@ For a project page, the base path of the repository must be specified. Add the f
 | Name                        | Value                    |
 | --------------------------- | ------------------------ |
 | VITE_BASE_PUBLIC_PATH       | `/repository-name/`      |
+
+#### SPA routing on GitHub Pages
+
+GitHub Pages doesn't support server-side rewrites, so direct links to client-side routes (like `/cv` or `/blog`) 404 by default when using Vue Router history mode.
+
+This template includes a GitHub Pages SPA fallback:
+
+- `public/404.html` captures the requested path and redirects to `/` with it encoded in the query string.
+- `index.html` contains a tiny script that runs before the app mounts to restore the original path using `history.replaceState`.
+
+This keeps clean URLs working both locally and on GitHub Pages without switching to hash (`#/`) URLs.
+
+Notes:
+- For user/organization sites (repo named `<user>.github.io`), leave `VITE_BASE_PUBLIC_PATH` empty (defaults to `/`).
+- For project sites (repo named anything else), set `VITE_BASE_PUBLIC_PATH` to `/<repository-name>/` so assets resolve correctly.

@@ -15,13 +15,15 @@ const showLocales = ref(false)
 function selectLocale(loc) {
   showLocales.value = false
   setLocale(loc)
+  if(currentLocale == "None"){
+    setLocale("en")
+  }
 }
 
 function goToSection(hash) {
   // navigate to home with hash
   router.push({ path: '/', hash })
 }
-console.log(currentLocale)
 </script>
 
 <template>
