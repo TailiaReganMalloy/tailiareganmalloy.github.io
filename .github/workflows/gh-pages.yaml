@@ -35,6 +35,9 @@ jobs:
         env:
           VITE_BASE_PUBLIC_PATH: /
 
+      - name: Copy CNAME to dist
+        run: cp public/CNAME dist/CNAME
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
