@@ -1,0 +1,7 @@
+html {
+  @apply antialiased min-h-full;
+}
+
+body {
+  @apply dark:bg-gray-900 dark:text-gray-50;
+}
