@@ -137,3 +137,9 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Experiment large files (data is served from /public/)
+src/pages/experiments/fillInTheBlank/source/data/
+src/pages/experiments/fillInTheBlank/third_party/
+src/pages/experiments/fillInTheBlank/server/
+src/pages/experiments/fillInTheBlank/templates/
