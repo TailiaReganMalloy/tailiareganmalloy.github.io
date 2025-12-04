@@ -6,7 +6,6 @@ import Particles from "@/components/particles.vue";
 // Dynamically load all project pages in src/pages/projects/*.vue
 // Each project page should export a `meta` named export with { title, image, description }
 const projectModules = import.meta.glob('./projects/*.vue', { eager: true })
-console.log('Project modules:', projectModules)
 const projects = Object.entries(projectModules).map(([path, mod]) => {
   const name = path.split('/').pop().replace('.vue', '')
   const meta = mod.meta || mod.default?.meta || {}
@@ -18,7 +17,6 @@ const projects = Object.entries(projectModules).map(([path, mod]) => {
   console.log('Project loaded:', { name, title, image, description, route, meta })
   return { name, title, image, description, route }
 })
-console.log('All projects:', projects)
 
 defineOptions({ 
   name: 'HomePage'

@@ -1,0 +1,7 @@
+# Ignore experiment-related CSS files
+**/fillInTheBlank/style.css
+**/fillInTheBlank/style.scoped.css
+**/fillInTheBlank/source/**
+**/fillInTheBlank/third_party/**
+**/fillInTheBlank/server/**
+dist/**

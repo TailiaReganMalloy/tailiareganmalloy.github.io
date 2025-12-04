@@ -48,7 +48,7 @@
 import phishingImage from '@/assets/img/Phishing.png';
 
 export const meta = {
-  title: 'Anti-Phishing Training',
+  title: 'Generative Artificial Intelligence',
   image: phishingImage,
   description: 'A research and engineering project focused on detecting and preventing phishing attacks using machine learning and behavioral analysis.'
 }

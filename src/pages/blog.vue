@@ -5,8 +5,7 @@ import Header from '@/components/header.vue';
 defineOptions({ name: 'BlogPage' });
 
 const posts = ref([]);
-const currentPage = ref(1);
-const postsPerPage = 10;
+const selectedYear = ref(null);
 const selectedPost = ref(null);
 const loading = ref(true);
 
@@ -75,20 +74,30 @@ const loadPosts = async () => {
   }
 };
 
-// Pagination
-const totalPages = computed(() => Math.ceil(posts.value.length / postsPerPage));
-
-const paginatedPosts = computed(() => {
-  const start = (currentPage.value - 1) * postsPerPage;
-  const end = start + postsPerPage;
-  return posts.value.slice(start, end);
+// Year-based filtering
+const availableYears = computed(() => {
+  const years = [...new Set(posts.value.map(post => new Date(post.date).getFullYear()))];
+  return years.sort((a, b) => b - a); // Sort newest to oldest
 });
 
-const goToPage = (page) => {
-  if (page >= 1 && page <= totalPages.value) {
-    currentPage.value = page;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+const postsForSelectedYear = computed(() => {
+  if (!selectedYear.value) {
+    // If no year selected, show the most recent year
+    if (availableYears.value.length > 0) {
+      return posts.value.filter(post => 
+        new Date(post.date).getFullYear() === availableYears.value[0]
+      );
+    }
+    return [];
   }
+  return posts.value.filter(post => 
+    new Date(post.date).getFullYear() === selectedYear.value
+  );
+});
+
+const selectYear = (year) => {
+  selectedYear.value = year;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
 const viewPost = (post) => {
@@ -172,43 +181,25 @@ onMounted(() => {
         
         <!-- Posts list -->
         <div v-else class="space-y-6">
-          <!-- Pagination (Top) -->
-          <div v-if="totalPages > 1" class="mb-6 flex justify-center items-center gap-2">
+          <!-- Year Selection -->
+          <div v-if="availableYears.length > 1" class="mb-6 flex justify-center items-center gap-2 flex-wrap">
             <button
-              @click="goToPage(currentPage - 1)"
-              :disabled="currentPage === 1"
-              class="px-4 py-2 rounded bg-gray-200 dark:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300 dark:hover:bg-gray-600"
+              v-for="year in availableYears"
+              :key="year"
+              @click="selectYear(year)"
+              :class="[
+                'px-4 py-2 rounded font-medium transition-colors',
+                (selectedYear === year || (!selectedYear && year === availableYears[0]))
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600'
+              ]"
             >
-              Previous
-            </button>
-            
-            <div class="flex gap-1">
-              <button
-                v-for="page in totalPages"
-                :key="page"
-                @click="goToPage(page)"
-                :class="[
-                  'px-3 py-2 rounded',
-                  page === currentPage
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600'
-                ]"
-              >
-                {{ page }}
-              </button>
-            </div>
-            
-            <button
-              @click="goToPage(currentPage + 1)"
-              :disabled="currentPage === totalPages"
-              class="px-4 py-2 rounded bg-gray-200 dark:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300 dark:hover:bg-gray-600"
-            >
-              Next
+              {{ year }}
             </button>
           </div>
           
           <article
-            v-for="post in paginatedPosts"
+            v-for="post in postsForSelectedYear"
             :key="post.filename"
             class="border-b border-gray-200 dark:border-gray-700 pb-6 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 p-4 rounded transition-colors"
             @click="viewPost(post)"
@@ -232,41 +223,6 @@ onMounted(() => {
               </span>
             </div>
           </article>
-        </div>
-        
-        <!-- Pagination -->
-        <div v-if="totalPages > 1" class="mt-8 flex justify-center items-center gap-2">
-          <button
-            @click="goToPage(currentPage - 1)"
-            :disabled="currentPage === 1"
-            class="px-4 py-2 rounded bg-gray-200 dark:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300 dark:hover:bg-gray-600"
-          >
-            Previous
-          </button>
-          
-          <div class="flex gap-1">
-            <button
-              v-for="page in totalPages"
-              :key="page"
-              @click="goToPage(page)"
-              :class="[
-                'px-3 py-2 rounded',
-                page === currentPage
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600'
-              ]"
-            >
-              {{ page }}
-            </button>
-          </div>
-          
-          <button
-            @click="goToPage(currentPage + 1)"
-            :disabled="currentPage === totalPages"
-            class="px-4 py-2 rounded bg-gray-200 dark:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300 dark:hover:bg-gray-600"
-          >
-            Next
-          </button>
         </div>
       </div>
       
