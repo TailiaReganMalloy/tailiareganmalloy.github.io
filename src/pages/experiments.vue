@@ -35,7 +35,7 @@ defineOptions({ name: 'ExperimentsPage' })
       <div class="max-w-6xl mx-auto">
         <h2 class="text-3xl font-semibold text-center">Experiments</h2>
         <p class="mt-4 text-center text-gray-600 dark:text-gray-300">
-          Explore interactive experiments and demos.
+          Explore interactive experiments and demos. 
         </p>
 
         <div class="mt-10 grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
