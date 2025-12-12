@@ -6,7 +6,7 @@
       <div v-if="!showDetail">
         <img
           :src="meta.image"
-          alt="Anti-Phishing"
+          alt="Generative AI"
           class="w-full h-64 object-cover rounded mb-6 cursor-pointer"
           @click="showDetail = true"
         />
@@ -17,7 +17,7 @@
         <div class="flex flex-col items-center mb-8">
           <img
             :src="meta.image"
-            alt="Anti-Phishing"
+            alt="Generative AI"
             class="w-full h-64 object-cover rounded mb-4"
           />
           <h1 class="text-3xl font-bold mb-2 text-center">{{ meta.title }}</h1>
@@ -45,12 +45,12 @@
 
 <script>
 // Project meta info for project listing
-import phishingImage from '@/assets/img/Phishing.png';
+import phishingImage from '@/assets/img/GenerativeAI.png';
 
 export const meta = {
   title: 'Generative Artificial Intelligence',
   image: phishingImage,
-  description: 'A research and engineering project focused on detecting and preventing phishing attacks using machine learning and behavioral analysis.'
+  description: 'This research focuses on generative AI models including LLMs, visual based models like GANs and VEs, as well as multi-modal models.'
 }
 </script>
 

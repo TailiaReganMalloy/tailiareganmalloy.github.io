@@ -53,8 +53,6 @@ defineOptions({
     <section id="projects" class="container mx-auto px-4 py-20">
       <div class="max-w-6xl mx-auto">
         <h2 class="text-3xl font-semibold text-center">Projects</h2>
-        <p class="mt-4 text-center text-gray-600 dark:text-gray-300">Visit back later for more information on my personal projects.</p>
-
         <div class="mt-10 grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           <template v-for="proj in projects" :key="proj.name">
             <article class="bg-white dark:bg-gray-800 shadow rounded overflow-hidden">

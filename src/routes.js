@@ -5,6 +5,7 @@ import CvpdfPage from './pages/cvpdf.vue';
 import BlogPage from './pages/blog.vue';
 import AntiPhishingPage from './pages/projects/antiPhishing.vue';
 import CognitiveModelingPage from './pages/projects/cognitiveModeling.vue';
+import GenerativeAIPage from './pages/projects/generativeAI.vue';
 import ExperimentsPage from './pages/experiments.vue';
 
 // Dynamically import all experiment-specific route definition files.
@@ -27,6 +28,7 @@ const routes = [
   { path: '/blog', name: 'Blog', component: BlogPage },
   { path: '/projects/antiPhishing', name: 'AntiPhishing', component: AntiPhishingPage },
   { path: '/projects/cognitiveModeling', name: 'CognitiveModeling', component: CognitiveModelingPage },
+  { path: '/projects/generativeAI', name: 'generativeAI', component: GenerativeAIPage },
   { path: '/experiments', name: 'experimentsPage', component: ExperimentsPage },
   // Spread in dynamically discovered experiment routes
   ...experimentRoutes
