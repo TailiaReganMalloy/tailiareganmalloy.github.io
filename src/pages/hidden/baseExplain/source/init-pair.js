@@ -61,7 +61,7 @@ window.initPair = function (pair) {
     .text('ⓘ')
     .call(addLockedTooltip)
     .datum(
-      'The scales are set using the top N tokens for each sentence. <br><br>"Likelihoods" will show more than N tokens if a top completion for one sentence is unlikely for the other sentence.',
+      '',
     )
     .parent()
     .parent()
@@ -82,7 +82,7 @@ window.initPair = function (pair) {
     .text('ⓘ')
     .call(addLockedTooltip)
     .datum(
-      '"Likelihoods" shows the logits from both models plotted directly with a shared linear scale.<br><br> To better contrast the outputs, "Differences" shows <code>logitA - logitB</code> on the y-axis and <code>mean(logitA, logitB)</code> on the x-axis with separate linear scales.',
+      '',
     )
     .parent()
     .parent()

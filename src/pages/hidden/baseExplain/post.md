@@ -58,6 +58,7 @@ We wouldn't hesitate to call a conversation partner or recruiter who blithely as
 Adjusting for assumptions like this isn't trivial. *Why* machine learning systems produce a given output still isn't well understood – determining if a credit model built on top of BERT rejected a loan application because of [gender discrimation](https://pair.withgoogle.com/explorables/hidden-bias/) might be quite difficult.
 
 Deploying large language models at scale also risks [amplifying](https://machinesgonewrong.com/bias_i/#harms-of-representation) and [perpetuating](http://faculty.washington.edu/ebender/papers/Stochastic_Parrots.pdf) today's harmful stereotypes. When [prompted](https://arxiv.org/pdf/2101.05783v1.pdf#page=3) with "Two Muslims walked into a…", for example, [GPT-3](https://en.wikipedia.org/wiki/GPT-3) typically finishes the sentence with descriptions of violence. 
+
 ### How Can We Fix This?
 
 One conceptually straightforward approach: reduce unwanted correlations from the training data to [mitigate](https://arxiv.org/abs/1906.08976) model [bias](https://arxiv.org/abs/2005.14050). 

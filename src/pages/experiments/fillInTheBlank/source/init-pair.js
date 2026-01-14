@@ -60,9 +60,7 @@ window.initPair = function (pair) {
     .append('info')
     .text('ⓘ')
     .call(addLockedTooltip)
-    .datum(
-      'The scales are set using the top N tokens for each sentence. <br><br>"Likelihoods" will show more than N tokens if a top completion for one sentence is unlikely for the other sentence.',
-    )
+    .datum('')
     .parent()
     .parent()
     .append('div.flex-row')
