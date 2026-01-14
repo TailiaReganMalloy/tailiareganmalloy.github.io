@@ -112,7 +112,16 @@ window.initPair = function (pair) {
   var updateSel = optionSel
     .append('div.flex-row')
     .append('div.button.update')
-    .on('click', updateChart)
+    .on('click', function() {
+      // Track this update as an interactive submission
+      if (window.logInteractiveSubmission) {
+        const str0 = input0Sel.node().value;
+        const str1 = input1Sel.node().value;
+        console.log('[init-pair.js] Update button clicked, logging submission:', { str0, str1 });
+        window.logInteractiveSubmission(str0 + ' | ' + str1, 'pair_update', 'pair_update');
+      }
+      updateChart();
+    })
     .text('Update')
     .st({display: isMobile ? 'none' : ''});
 

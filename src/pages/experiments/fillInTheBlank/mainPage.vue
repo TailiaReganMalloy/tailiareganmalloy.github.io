@@ -189,14 +189,14 @@ const hasInteractiveSubmissionInSection = computed(() => {
   return interactiveSubmissions.value.some(sub => sub.sectionIndex === currentSectionIndex.value);
 });
 
-// Split content into sections based on H3 headings (###)
+// Split content into sections based on H1 headings (#)
 function splitIntoSections(markdownContent) {
   const sectionsList = [];
   
-  // Split by ### headings
-  const parts = markdownContent.split(/(?=^### )/gm);
+  // Split by # headings
+  const parts = markdownContent.split(/(?=^# )/gm);
   
-  // First part is the introduction (before any ### heading)
+  // First part is the introduction (before any # heading)
   if (parts[0] && parts[0].trim()) {
     sectionsList.push({
       title: 'Introduction',
@@ -205,12 +205,12 @@ function splitIntoSections(markdownContent) {
     });
   }
   
-  // Process remaining sections (each starts with ###)
+  // Process remaining sections (each starts with #)
   for (let i = 1; i < parts.length; i++) {
     const part = parts[i].trim();
     if (part) {
-      // Extract title from ### heading
-      const titleMatch = part.match(/^### (.+)$/m);
+      // Extract title from # heading
+      const titleMatch = part.match(/^# (.+)$/m);
       const sectionTitle = titleMatch ? titleMatch[1] : `Section ${i}`;
       
       sectionsList.push({

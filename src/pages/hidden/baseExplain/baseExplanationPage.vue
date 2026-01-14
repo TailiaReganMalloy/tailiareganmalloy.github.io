@@ -24,9 +24,9 @@
       </div>
 
       <!-- Open response text box -->
-      <div v-if="currentSectionIndex < sections.length - 1" class="response-section">
+      <div class="response-section">
         <label for="section-response" class="response-label">
-          What did you learn from this section? (required to continue)
+          {{ currentSectionIndex < sections.length - 1 ? 'What did you learn from this section? (required to continue)' : 'What did you think about what you learned? (required to finish)' }}
         </label>
         <textarea
           id="section-response"
@@ -42,13 +42,6 @@
       
       <!-- Navigation buttons -->
       <div class="section-navigation">
-        <button 
-          v-if="currentSectionIndex > 0" 
-          @click="previousSection"
-          class="nav-button nav-button-back"
-        >
-          ← Back
-        </button>
         <button 
           v-if="currentSectionIndex < sections.length - 1" 
           @click="nextSection"
@@ -68,9 +61,9 @@
       </div>
 
       <!-- Completion code display -->
-      <div v-if="completionCode" class="completion-code" style="margin-top: 20px; text-align: center;">
+      <div v-if="currentSectionIndex === sections.length - 1" class="completion-code" style="margin-top: 20px; text-align: center;">
         <p style="margin-bottom: 8px;">Your completion code:</p>
-        <code style="font-size: 18px; font-weight: 600; letter-spacing: 1px;">{{ completionCode }}</code>
+        <code style="font-size: 18px; font-weight: 600; letter-spacing: 1px;">{{ completionToken }}</code>
       </div>
     </div>
   </div>
@@ -176,11 +169,16 @@ function markdownToHtml(md) {
 
 const { frontmatter, content } = parseFrontmatter(postMarkdownRaw);
 
+// Generate a unique completion token at the start
+function generateCompletionToken() {
+  return Math.random().toString(36).slice(2, 12).toUpperCase();
+}
+
+const completionToken = ref(generateCompletionToken());
 const title = ref(frontmatter.title || 'Fill in the Blank');
 const sections = ref([]);
 const currentSectionIndex = ref(0);
 const currentResponse = ref('');
-const completionCode = ref('');
 const interactiveSubmissions = ref([]);
 
 // Computed property for current section
@@ -197,14 +195,50 @@ const hasInteractiveSubmissionInSection = computed(() => {
   return interactiveSubmissions.value.some(sub => sub.sectionIndex === currentSectionIndex.value);
 });
 
-// Split content into sections based on H3 headings (###)
+// Define logInteractiveSubmission on window EARLY so scripts can call it
+// This must be defined before scripts are loaded
+window.logInteractiveSubmission = function(originalText, updatedText, submissionType = 'sentence_update') {
+  const section = currentSection.value;
+  if (!section) {
+    console.error('[logInteractiveSubmission] No current section found');
+    return;
+  }
+  
+  console.log('[logInteractiveSubmission] Recording submission:', {
+    pageTitle: title.value,
+    sectionTitle: section.title,
+    sectionIndex: currentSectionIndex.value,
+    originalText,
+    updatedText,
+    submissionType
+  });
+  
+  const submission = {
+    pageTitle: title.value,
+    sectionTitle: section.title,
+    sectionIndex: currentSectionIndex.value,
+    originalText: originalText,
+    updatedText: updatedText,
+    submissionType: submissionType
+  };
+  
+  // Add to local tracking
+  interactiveSubmissions.value.push(submission);
+  console.log('[logInteractiveSubmission] Updated interactiveSubmissions:', interactiveSubmissions.value.length, 'total');
+  console.log('[logInteractiveSubmission] hasInteractiveSubmissionInSection:', hasInteractiveSubmissionInSection.value);
+  
+  // Save to backend
+  saveInteractiveSubmission(submission);
+};
+
+// Split content into sections based on H1 headings (#)
 function splitIntoSections(markdownContent) {
   const sectionsList = [];
   
-  // Split by ### headings
-  const parts = markdownContent.split(/(?=^### )/gm);
+  // Split by # headings
+  const parts = markdownContent.split(/(?=^# )/gm);
   
-  // First part is the introduction (before any ### heading)
+  // First part is the introduction (before any # heading)
   if (parts[0] && parts[0].trim()) {
     sectionsList.push({
       title: 'Introduction',
@@ -213,12 +247,12 @@ function splitIntoSections(markdownContent) {
     });
   }
   
-  // Process remaining sections (each starts with ###)
+  // Process remaining sections (each starts with #)
   for (let i = 1; i < parts.length; i++) {
     const part = parts[i].trim();
     if (part) {
-      // Extract title from ### heading
-      const titleMatch = part.match(/^### (.+)$/m);
+      // Extract title from # heading
+      const titleMatch = part.match(/^# (.+)$/m);
       const sectionTitle = titleMatch ? titleMatch[1] : `Section ${i}`;
       
       sectionsList.push({
@@ -265,7 +299,8 @@ async function saveResponse() {
         pageTitle: title.value,
         sectionTitle: section.title,
         sectionIndex: currentSectionIndex.value,
-        responseText: currentResponse.value
+        responseText: currentResponse.value,
+        completionToken: completionToken.value
       })
     });
 
@@ -280,50 +315,13 @@ async function saveResponse() {
   }
 }
 
-function previousSection() {
-  if (currentSectionIndex.value > 0) {
-    currentSectionIndex.value--;
-    currentResponse.value = '';
-    scrollToTop();
-    // Reload experiment scripts for new section content
-    nextTick(() => loadExperimentScripts());
-  }
-}
-
 // Removed unused restartFromBeginning to satisfy ESLint no-unused-vars
 
 // Submit final response and show completion code
 async function submitAndFinish() {
   if (!currentResponse.value.trim()) return;
   await saveResponse();
-  completionCode.value = generateCompletionCode();
 }
-
-function generateCompletionCode() {
-  // 10-char uppercase alphanumeric code
-  return Math.random().toString(36).slice(2, 12).toUpperCase();
-}
-
-// Log interactive submission (called from window when Update button is clicked)
-window.logInteractiveSubmission = function(originalText, updatedText, submissionType = 'sentence_update') {
-  const section = currentSection.value;
-  if (!section) return;
-  
-  const submission = {
-    pageTitle: title.value,
-    sectionTitle: section.title,
-    sectionIndex: currentSectionIndex.value,
-    originalText: originalText,
-    updatedText: updatedText,
-    submissionType: submissionType
-  };
-  
-  // Add to local tracking
-  interactiveSubmissions.value.push(submission);
-  
-  // Save to backend
-  saveInteractiveSubmission(submission);
-};
 
 // Save interactive submission to backend
 async function saveInteractiveSubmission(submission) {
@@ -338,6 +336,9 @@ async function saveInteractiveSubmission(submission) {
     const apiUrl = (window.__API_URL__ && typeof window.__API_URL__ === 'string'
       ? window.__API_URL__
       : (import.meta.env.VITE_API_URL || 'http://localhost:3001'));
+    
+    // Add completion token to submission
+    submission.completionToken = completionToken.value;
     
     const response = await fetch(`${apiUrl}/api/interactive-submissions`, {
       method: 'POST',
@@ -399,6 +400,9 @@ function loadExperimentScripts() {
     if (index >= scripts.length) {
       // init.js already calls window.init() automatically via the resize() IIFE
       // So we don't need to call it again here
+      
+      // Attach event listeners to Update buttons
+      attachUpdateButtonListeners();
       return;
     }
 
@@ -414,6 +418,29 @@ function loadExperimentScripts() {
   };
   
   loadNext(0);
+}
+
+// Attach event listeners to "Update" buttons to track submissions
+function attachUpdateButtonListeners() {
+  console.log('[attachUpdateButtonListeners] Starting...');
+  
+  // Use event delegation on document to catch all current and future Update button clicks
+  document.addEventListener('click', function(event) {
+    const button = event.target.closest('button');
+    if (button && button.textContent.includes('Update')) {
+      console.log('[attachUpdateButtonListeners] Update button clicked!', button.textContent, button);
+      
+      // Record this as an interactive submission
+      if (window.logInteractiveSubmission) {
+        console.log('[attachUpdateButtonListeners] Calling logInteractiveSubmission...');
+        window.logInteractiveSubmission('clicked', 'update', 'button_click');
+      } else {
+        console.error('[attachUpdateButtonListeners] window.logInteractiveSubmission is not defined');
+      }
+    }
+  }, true); // Use capture phase to catch events early
+  
+  console.log('[attachUpdateButtonListeners] Event delegation attached to document');
 }
 </script>
 

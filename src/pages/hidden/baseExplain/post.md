@@ -8,7 +8,7 @@ permalink: /fill-in-the-blank/
 date: 2021-07-28
 ---
 
-### Large Language Models 
+# Large Language Models 
 
 <p>Large language models are making it possible for computers to <a href="https://openai.com/blog/better-language-models/" target="_blank" rel="noopener">write stories</a>, <a href="https://twitter.com/sharifshameem/status/1282676454690451457" target="_blank" rel="noopener">program a website</a> and <a href="https://openai.com/blog/dall-e/" target="_blank" rel="noopener">turn captions into images</a>.</p>
 
@@ -20,7 +20,7 @@ This page is hooked up to a version of BERT trained on Wikipedia and books.<a cl
 
 <div class='sent hamlet'></div>
 
-### Cattle or Clothes?
+# Cattle or Clothes?
 
 Besides Hamlet's existential dread, the text BERT was trained on also contains more patterns: 
 
@@ -37,7 +37,8 @@ There are more than 30,000 words, punctuation marks and word fragments in BERT's
 You can **edit these sentences**. Or try one of these comparisons to get started: <span class='texas-ohio-alts'></span>
 
 To the extent that a computer program can "know" something, what does BERT know about where you live? 
-### What's in a Name? 
+
+# What's in a Name? 
 
 This technique can also probe what associations BERT has learned about different groups of people. For example, it predicts people named Elsie are older than people named Lauren:  
 
@@ -59,7 +60,7 @@ Adjusting for assumptions like this isn't trivial. *Why* machine learning system
 
 Deploying large language models at scale also risks [amplifying](https://machinesgonewrong.com/bias_i/#harms-of-representation) and [perpetuating](http://faculty.washington.edu/ebender/papers/Stochastic_Parrots.pdf) today's harmful stereotypes. When [prompted](https://arxiv.org/pdf/2101.05783v1.pdf#page=3) with "Two Muslims walked into a…", for example, [GPT-3](https://en.wikipedia.org/wiki/GPT-3) typically finishes the sentence with descriptions of violence. 
 
-### How Can We Fix This?
+# How Can We Fix This?
 
 One conceptually straightforward approach: reduce unwanted correlations from the training data to [mitigate](https://arxiv.org/abs/1906.08976) model [bias](https://arxiv.org/abs/2005.14050). 
 
@@ -76,7 +77,7 @@ As with [other applications](https://pair.withgoogle.com/explorables/measuring-f
 It's also possible that as models grow more capable, they might be able to [explain](https://arxiv.org/abs/2004.14546) and perform some of this debiasing themselves. Instead of forcing the model to tell us the gender of "the doctor," we could let it respond with [uncertainty](https://arr.am/2020/07/25/gpt-3-uncertainty-prompts/) that's [shown to the user](https://ai.googleblog.com/2018/12/providing-gender-specific-translations.html) and controls to override assumptions. 
 
 
-### Differences Over Time
+# Differences Over Time
 
 In addition to looking at how predictions for <c0>men</c0> and <c1>women</c1> are different for a given sentence, we can also chart how those differences have changed over time: 
 
