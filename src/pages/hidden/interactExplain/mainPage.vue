@@ -186,7 +186,7 @@ const progressPercentage = computed(() => {
 
 // Computed property to check if current section has at least one interactive submission
 const hasInteractiveSubmissionInSection = computed(() => {
-  return interactiveSubmissions.value.some(sub => sub.section_index === currentSectionIndex.value);
+  return interactiveSubmissions.value.some(sub => sub.sectionIndex === currentSectionIndex.value);
 });
 
 // Split content into sections based on H3 headings (###)
