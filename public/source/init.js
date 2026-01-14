@@ -578,11 +578,18 @@ window.init = async function () {
     });
 
   function update() {
+    const originalValue = sent.str;
     sent.str = inputSel.node().value;
+    const updatedValue = sent.str;
 
     sel.classed('changed', 0);
-  console.log('[init.js] update() calling initSent with:', sent);
-  initSent(sent);
+    console.log('[init.js] update() calling initSent with:', sent);
+    initSent(sent);
+    
+    // Log the interactive submission if the function is available
+    if (typeof window.logInteractiveSubmission === 'function') {
+      window.logInteractiveSubmission(originalValue, updatedValue, 'sentence_update');
+    }
   }
 })();
 

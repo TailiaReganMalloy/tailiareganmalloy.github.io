@@ -18,6 +18,11 @@
         <div v-html="currentSection.html" class="experiment-content"></div>
       </div>
       
+      <!-- Interactive submissions notice -->
+      <div v-if="currentSectionIndex < sections.length - 1 && !hasInteractiveSubmissionInSection" class="interactive-notice">
+        <p class="interactive-notice-text">💡 This section has interactive elements. Try clicking an "Update" button to generate new text!</p>
+      </div>
+
       <!-- Open response text box -->
       <div v-if="currentSectionIndex < sections.length - 1" class="response-section">
         <label for="section-response" class="response-label">
@@ -47,7 +52,7 @@
         <button 
           v-if="currentSectionIndex < sections.length - 1" 
           @click="nextSection"
-          :disabled="!currentResponse.trim()"
+          :disabled="!currentResponse.trim() || !hasInteractiveSubmissionInSection"
           class="nav-button nav-button-continue"
         >
           Continue →
@@ -168,6 +173,7 @@ const title = ref(frontmatter.title || 'Fill in the Blank');
 const sections = ref([]);
 const currentSectionIndex = ref(0);
 const currentResponse = ref('');
+const interactiveSubmissions = ref([]);
 
 // Computed property for current section
 const currentSection = computed(() => sections.value[currentSectionIndex.value] || null);
@@ -176,6 +182,11 @@ const currentSection = computed(() => sections.value[currentSectionIndex.value] 
 const progressPercentage = computed(() => {
   if (sections.value.length === 0) return 0;
   return ((currentSectionIndex.value + 1) / sections.value.length) * 100;
+});
+
+// Computed property to check if current section has at least one interactive submission
+const hasInteractiveSubmissionInSection = computed(() => {
+  return interactiveSubmissions.value.some(sub => sub.section_index === currentSectionIndex.value);
 });
 
 // Split content into sections based on H3 headings (###)
@@ -276,6 +287,53 @@ function restartFromBeginning() {
   currentResponse.value = '';
   scrollToTop();
   nextTick(() => loadExperimentScripts());
+}
+
+// Log interactive submission (called from window when Update button is clicked)
+window.logInteractiveSubmission = function(originalText, updatedText, submissionType = 'sentence_update') {
+  const section = currentSection.value;
+  if (!section) return;
+  
+  const submission = {
+    page_title: title.value,
+    section_title: section.title,
+    section_index: currentSectionIndex.value,
+    original_text: originalText,
+    updated_text: updatedText,
+    submission_type: submissionType
+  };
+  
+  // Add to local tracking
+  interactiveSubmissions.value.push(submission);
+  
+  // Save to backend
+  saveInteractiveSubmission(submission);
+};
+
+// Save interactive submission to backend
+async function saveInteractiveSubmission(submission) {
+  try {
+    const apiUrl = (window.__API_URL__ && typeof window.__API_URL__ === 'string'
+      ? window.__API_URL__
+      : (import.meta.env.VITE_API_URL || 'http://localhost:3001'));
+    
+    const response = await fetch(`${apiUrl}/api/interactive-submissions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(submission)
+    });
+
+    if (!response.ok) {
+      console.error('Failed to save interactive submission:', response.statusText);
+    } else {
+      const data = await response.json();
+      console.log('Interactive submission saved:', data);
+    }
+  } catch (error) {
+    console.error('Error saving interactive submission:', error);
+  }
 }
 
 function scrollToTop() {
