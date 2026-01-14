@@ -1135,8 +1135,8 @@ path{
 .fill-in-the-blank-experiment .interactive-notice-text {
   margin: 0;
   color: #0d47a1;
-  font-size: 15px;
   font-weight: 500;
+  font-size: 15px;
 }
 
 .fill-in-the-blank-experiment .nav-button:disabled {

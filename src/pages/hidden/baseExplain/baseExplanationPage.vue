@@ -20,7 +20,7 @@
       
       <!-- Interactive submissions notice -->
       <div v-if="currentSectionIndex < sections.length - 1 && !hasInteractiveSubmissionInSection" class="interactive-notice">
-        <p class="interactive-notice-text">💡 This section has interactive elements. Try clicking an "Update" button to generate new text!</p>
+        <p class="interactive-notice-text">💡 This section has interactive elements. Try changing the sentence and clicking the "Update" button to generate new text! Update at least once to continue.</p>
       </div>
 
       <!-- Open response text box -->

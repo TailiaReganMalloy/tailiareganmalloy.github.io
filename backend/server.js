@@ -27,6 +27,13 @@ app.get('/health', (req, res) => {
 
 // Initialize database table (run this once)
 async function initializeDatabase() {
+  // Skip database initialization if no DATABASE_URL is set (local development)
+  if (!process.env.DATABASE_URL) {
+    console.log('⚠️  DATABASE_URL not set. Running in offline mode - API endpoints will not work.');
+    console.log('   To enable database: set DATABASE_URL environment variable');
+    return;
+  }
+
   try {
     await pool.query(`
       CREATE TABLE IF NOT EXISTS student_responses (
@@ -51,15 +58,25 @@ async function initializeDatabase() {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
-    console.log('Database tables initialized successfully');
+    console.log('✓ Database tables initialized successfully');
   } catch (error) {
-    console.error('Error initializing database:', error);
+    console.error('✗ Error initializing database:', error.message);
+    console.log('  API endpoints will not work without a database connection.');
+    console.log('  Ensure DATABASE_URL is set and PostgreSQL is running.');
   }
 }
 
 // Save student response endpoint
 app.post('/api/responses', async (req, res) => {
   const { pageTitle, sectionTitle, sectionIndex, responseText } = req.body;
+
+  // Check if database is available
+  if (!process.env.DATABASE_URL) {
+    return res.status(503).json({
+      error: 'Database not available',
+      message: 'DATABASE_URL environment variable not set'
+    });
+  }
 
   // Validate required fields
   if (!pageTitle || !sectionTitle || sectionIndex === undefined || !responseText) {
@@ -95,6 +112,14 @@ app.post('/api/responses', async (req, res) => {
 app.post('/api/interactive-submissions', async (req, res) => {
   const { pageTitle, sectionTitle, sectionIndex, originalText, updatedText, submissionType } = req.body;
 
+  // Check if database is available
+  if (!process.env.DATABASE_URL) {
+    return res.status(503).json({
+      error: 'Database not available',
+      message: 'DATABASE_URL environment variable not set'
+    });
+  }
+
   // Validate required fields
   if (!pageTitle || !sectionTitle || sectionIndex === undefined || !originalText || !updatedText || !submissionType) {
     return res.status(400).json({
@@ -127,6 +152,13 @@ app.post('/api/interactive-submissions', async (req, res) => {
 
 // Get interactive submissions endpoint
 app.get('/api/interactive-submissions', async (req, res) => {
+  if (!process.env.DATABASE_URL) {
+    return res.status(503).json({
+      error: 'Database not available',
+      message: 'DATABASE_URL environment variable not set'
+    });
+  }
+
   try {
     const result = await pool.query(
       'SELECT * FROM interactive_submissions ORDER BY created_at DESC;'
@@ -148,6 +180,14 @@ app.get('/api/interactive-submissions', async (req, res) => {
 // Get interactive submissions by page
 app.get('/api/interactive-submissions/:pageTitle', async (req, res) => {
   const { pageTitle } = req.params;
+
+  if (!process.env.DATABASE_URL) {
+    return res.status(503).json({
+      error: 'Database not available',
+      message: 'DATABASE_URL environment variable not set'
+    });
+  }
+
   try {
     const result = await pool.query(
       'SELECT * FROM interactive_submissions WHERE page_title = $1 ORDER BY created_at DESC;',
@@ -169,6 +209,13 @@ app.get('/api/interactive-submissions/:pageTitle', async (req, res) => {
 
 // Get all responses (optional - for admin/viewing)
 app.get('/api/responses', async (req, res) => {
+  if (!process.env.DATABASE_URL) {
+    return res.status(503).json({
+      error: 'Database not available',
+      message: 'DATABASE_URL environment variable not set'
+    });
+  }
+
   try {
     const result = await pool.query(
       `SELECT * FROM student_responses ORDER BY created_at DESC;`
@@ -183,6 +230,13 @@ app.get('/api/responses', async (req, res) => {
 // Get responses for a specific page
 app.get('/api/responses/:pageTitle', async (req, res) => {
   const { pageTitle } = req.params;
+
+  if (!process.env.DATABASE_URL) {
+    return res.status(503).json({
+      error: 'Database not available',
+      message: 'DATABASE_URL environment variable not set'
+    });
+  }
 
   try {
     const result = await pool.query(
