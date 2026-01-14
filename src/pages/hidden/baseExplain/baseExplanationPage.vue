@@ -310,12 +310,12 @@ window.logInteractiveSubmission = function(originalText, updatedText, submission
   if (!section) return;
   
   const submission = {
-    page_title: title.value,
-    section_title: section.title,
-    section_index: currentSectionIndex.value,
-    original_text: originalText,
-    updated_text: updatedText,
-    submission_type: submissionType
+    pageTitle: title.value,
+    sectionTitle: section.title,
+    sectionIndex: currentSectionIndex.value,
+    originalText: originalText,
+    updatedText: updatedText,
+    submissionType: submissionType
   };
   
   // Add to local tracking
@@ -328,8 +328,8 @@ window.logInteractiveSubmission = function(originalText, updatedText, submission
 // Save interactive submission to backend
 async function saveInteractiveSubmission(submission) {
   // Validate submission object
-  if (!submission.page_title || !submission.section_title || submission.section_index === undefined || 
-      !submission.original_text || !submission.updated_text || !submission.submission_type) {
+  if (!submission.pageTitle || !submission.sectionTitle || submission.sectionIndex === undefined || 
+      !submission.originalText || !submission.updatedText || !submission.submissionType) {
     console.error('Invalid submission object:', submission);
     return;
   }
