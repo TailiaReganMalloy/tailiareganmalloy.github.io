@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "build": "vite build",
-    "dev": "vite --host",
+    "dev": "concurrently \"vite --host\" \"node backend/server.js\"",
     "start": "node backend/server.js",
     "lint": "pnpm run lint:js && pnpm run lint:style",
     "lint:fix": "pnpm run lint:js -- --fix && pnpm run lint:style -- --fix",
@@ -22,6 +22,7 @@
     "@eslint/js": "^9.32.0",
     "@vitejs/plugin-vue": "^5.0.5",
     "autoprefixer": "^10.4.13",
+    "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-import-resolver-alias": "^1.1.2",

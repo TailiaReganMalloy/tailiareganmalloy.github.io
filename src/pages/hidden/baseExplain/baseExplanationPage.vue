@@ -327,6 +327,13 @@ window.logInteractiveSubmission = function(originalText, updatedText, submission
 
 // Save interactive submission to backend
 async function saveInteractiveSubmission(submission) {
+  // Validate submission object
+  if (!submission.page_title || !submission.section_title || submission.section_index === undefined || 
+      !submission.original_text || !submission.updated_text || !submission.submission_type) {
+    console.error('Invalid submission object:', submission);
+    return;
+  }
+
   try {
     const apiUrl = (window.__API_URL__ && typeof window.__API_URL__ === 'string'
       ? window.__API_URL__
@@ -341,7 +348,8 @@ async function saveInteractiveSubmission(submission) {
     });
 
     if (!response.ok) {
-      console.error('Failed to save interactive submission:', response.statusText);
+      const errorData = await response.json().catch(() => ({}));
+      console.error('Failed to save interactive submission:', response.statusText, errorData);
     } else {
       const data = await response.json();
       console.log('Interactive submission saved:', data);
