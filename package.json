@@ -5,11 +5,13 @@
   "scripts": {
     "build": "vite build",
     "dev": "vite --host",
+    "start": "node backend/server.js",
     "lint": "pnpm run lint:js && pnpm run lint:style",
     "lint:fix": "pnpm run lint:js -- --fix && pnpm run lint:style -- --fix",
     "lint:js": "eslint src",
     "lint:style": "stylelint **/*.{vue,css}",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "heroku-postbuild": "pnpm install && pnpm build && cd backend && npm install"
   },
   "dependencies": {
     "particles.js": "^2.0.0",
