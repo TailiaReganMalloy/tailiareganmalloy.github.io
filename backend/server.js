@@ -10,7 +10,9 @@ const PORT = process.env.PORT || 3001;
 // Database connection pool
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: true,
+  ssl: {
+    rejectUnauthorized: false
+  },
 });
 
 // Middleware
