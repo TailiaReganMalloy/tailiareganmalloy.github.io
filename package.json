@@ -11,7 +11,7 @@
     "lint:js": "eslint src",
     "lint:style": "stylelint **/*.{vue,css}",
     "serve": "vite preview",
-    "heroku-postbuild": "pnpm install && VITE_API_URL=https://tailia-malloy.herokuapp.com pnpm build && cd backend && npm install"
+    "heroku-postbuild": "pnpm install && VITE_API_URL=https://tailia-malloy-a64ce4a49fee.herokuapp.com pnpm build && cd backend && npm install"
   },
   "dependencies": {
     "particles.js": "^2.0.0",
