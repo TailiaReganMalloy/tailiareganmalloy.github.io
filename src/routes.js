@@ -7,7 +7,9 @@ import AntiPhishingPage from './pages/projects/antiPhishing.vue';
 import CognitiveModelingPage from './pages/projects/cognitiveModeling.vue';
 import GenerativeAIPage from './pages/projects/generativeAI.vue';
 import ExperimentsPage from './pages/experiments.vue';
+import StudyEntryPage from './pages/hidden/studyEntry.vue';
 import BaseExplanationPage from './pages/hidden/baseExplain/baseExplanationPage.vue'
+import staticExplanationPage from './pages/hidden/staticExplain/staticExplanationPage.vue'
 
 // Dynamically import all experiment-specific route definition files.
 // Each file at ./pages/experiments/<experiment>/routes.js should export either:
@@ -31,7 +33,11 @@ const routes = [
   { path: '/projects/cognitiveModeling', name: 'CognitiveModeling', component: CognitiveModelingPage },
   { path: '/projects/generativeAI', name: 'generativeAI', component: GenerativeAIPage },
   { path: '/experiments', name: 'experimentsPage', component: ExperimentsPage },
-  { path: '/baseExplanation', name: 'baseExplanation', component: BaseExplanationPage },
+  { path: '/studyEntry', name: 'studyEntry', component: StudyEntryPage },
+  { path: '/baseExplanation', name: 'baseExplanation', component: StudyEntryPage, props: { studyType: 'base' } },
+  { path: '/staticExplanation', name: 'staticExplanation', component: StudyEntryPage, props: { studyType: 'static' } },
+  { path: '/baseExplanation/study', name: 'baseExplanationStudy', component: BaseExplanationPage },
+  { path: '/staticExplanation/study', name: 'staticExplanationStudy', component: staticExplanationPage },
   // Spread in dynamically discovered experiment routes
   ...experimentRoutes
 ];

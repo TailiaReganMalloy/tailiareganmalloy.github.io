@@ -1,8 +1,18 @@
 
 <template>
   <div class="fill-in-the-blank-experiment">
+    <!-- Completion page - shown after submit -->
+    <div v-if="studyCompleted" class="completion-page">
+      <div class="completion-wrapper">
+        <h1 class="completion-title">Thank You!</h1>
+        <p class="completion-message">Your completion code:</p>
+        <code class="completion-code-display">{{ completionToken }}</code>
+        <p class="completion-instructions">You can now go back to the survey.</p>
+      </div>
+    </div>
+
     <!-- Experiment content container styled to match the post.html template -->
-    <div class="experiment-wrapper">
+    <div v-else class="experiment-wrapper">
       <h1 class="headline">{{ title }}</h1>
       
       <!-- Progress indicator -->
@@ -58,12 +68,6 @@
         >
           Submit & Finish
         </button>
-      </div>
-
-      <!-- Completion code display -->
-      <div v-if="currentSectionIndex === sections.length - 1" class="completion-code" style="margin-top: 20px; text-align: center;">
-        <p style="margin-bottom: 8px;">Your completion code:</p>
-        <code style="font-size: 18px; font-weight: 600; letter-spacing: 1px;">{{ completionToken }}</code>
       </div>
     </div>
   </div>
@@ -180,6 +184,28 @@ const sections = ref([]);
 const currentSectionIndex = ref(0);
 const currentResponse = ref('');
 const interactiveSubmissions = ref([]);
+const studyCompleted = ref(false);
+
+// Study type for this version
+const studyType = ref('interactive');
+
+// User info from study entry page
+const userEmail = ref(null);
+const userProlificId = ref(null);
+
+// Load user info from sessionStorage
+function loadUserInfo() {
+  try {
+    const stored = sessionStorage.getItem('studyUserInfo');
+    if (stored) {
+      const info = JSON.parse(stored);
+      userEmail.value = info.email || null;
+      userProlificId.value = info.prolificId || null;
+    }
+  } catch (e) {
+    console.warn('Could not load user info from sessionStorage:', e);
+  }
+}
 
 // Computed property for current section
 const currentSection = computed(() => sections.value[currentSectionIndex.value] || null);
@@ -300,7 +326,10 @@ async function saveResponse() {
         sectionTitle: section.title,
         sectionIndex: currentSectionIndex.value,
         responseText: currentResponse.value,
-        completionToken: completionToken.value
+        completionToken: completionToken.value,
+        email: userEmail.value,
+        prolificId: userProlificId.value,
+        studyType: studyType.value
       })
     });
 
@@ -321,6 +350,7 @@ async function saveResponse() {
 async function submitAndFinish() {
   if (!currentResponse.value.trim()) return;
   await saveResponse();
+  studyCompleted.value = true;
 }
 
 // Save interactive submission to backend
@@ -337,8 +367,11 @@ async function saveInteractiveSubmission(submission) {
       ? window.__API_URL__
       : (import.meta.env.VITE_API_URL || 'http://localhost:3001'));
     
-    // Add completion token to submission
+    // Add completion token and user info to submission
     submission.completionToken = completionToken.value;
+    submission.email = userEmail.value;
+    submission.prolificId = userProlificId.value;
+    submission.studyType = studyType.value;
     
     const response = await fetch(`${apiUrl}/api/interactive-submissions`, {
       method: 'POST',
@@ -366,6 +399,9 @@ function scrollToTop() {
 
 // Parse markdown on mount, then load experiment scripts after DOM update
 onMounted(async () => {
+  // Load user info from study entry page
+  loadUserInfo();
+  
   sections.value = splitIntoSections(content);
   
   // Wait for DOM to update with rendered markdown

@@ -44,9 +44,27 @@ async function initializeDatabase() {
         section_title VARCHAR(255) NOT NULL,
         section_index INTEGER NOT NULL,
         response_text TEXT NOT NULL,
+        email VARCHAR(255),
+        prolific_id VARCHAR(255),
+        study_type VARCHAR(50),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
+    `);
+    // Add email and prolific_id columns if they don't exist (for existing tables)
+    await pool.query(`
+      DO $$ 
+      BEGIN 
+        IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='student_responses' AND column_name='email') THEN
+          ALTER TABLE student_responses ADD COLUMN email VARCHAR(255);
+        END IF;
+        IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='student_responses' AND column_name='prolific_id') THEN
+          ALTER TABLE student_responses ADD COLUMN prolific_id VARCHAR(255);
+        END IF;
+        IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='student_responses' AND column_name='study_type') THEN
+          ALTER TABLE student_responses ADD COLUMN study_type VARCHAR(50);
+        END IF;
+      END $$;
     `);
     await pool.query(`
       CREATE TABLE IF NOT EXISTS interactive_submissions (
@@ -57,8 +75,26 @@ async function initializeDatabase() {
         original_text TEXT NOT NULL,
         updated_text TEXT NOT NULL,
         submission_type VARCHAR(255) NOT NULL,
+        email VARCHAR(255),
+        prolific_id VARCHAR(255),
+        study_type VARCHAR(50),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
+    `);
+    // Add email and prolific_id columns if they don't exist (for existing tables)
+    await pool.query(`
+      DO $$ 
+      BEGIN 
+        IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='interactive_submissions' AND column_name='email') THEN
+          ALTER TABLE interactive_submissions ADD COLUMN email VARCHAR(255);
+        END IF;
+        IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='interactive_submissions' AND column_name='prolific_id') THEN
+          ALTER TABLE interactive_submissions ADD COLUMN prolific_id VARCHAR(255);
+        END IF;
+        IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='interactive_submissions' AND column_name='study_type') THEN
+          ALTER TABLE interactive_submissions ADD COLUMN study_type VARCHAR(50);
+        END IF;
+      END $$;
     `);
     console.log('✓ Database tables initialized successfully');
   } catch (error) {
@@ -70,7 +106,7 @@ async function initializeDatabase() {
 
 // Save student response endpoint
 app.post('/api/responses', async (req, res) => {
-  const { pageTitle, sectionTitle, sectionIndex, responseText } = req.body;
+  const { pageTitle, sectionTitle, sectionIndex, responseText, email, prolificId, studyType } = req.body;
 
   // Check if database is available
   if (!process.env.DATABASE_URL) {
@@ -89,10 +125,10 @@ app.post('/api/responses', async (req, res) => {
 
   try {
     const result = await pool.query(
-      `INSERT INTO student_responses (page_title, section_title, section_index, response_text)
-       VALUES ($1, $2, $3, $4)
+      `INSERT INTO student_responses (page_title, section_title, section_index, response_text, email, prolific_id, study_type)
+       VALUES ($1, $2, $3, $4, $5, $6, $7)
        RETURNING id, created_at;`,
-      [pageTitle, sectionTitle, sectionIndex, responseText]
+      [pageTitle, sectionTitle, sectionIndex, responseText, email || null, prolificId || null, studyType || null]
     );
 
     res.status(201).json({
@@ -112,7 +148,7 @@ app.post('/api/responses', async (req, res) => {
 
 // Save interactive submission endpoint (e.g., updated sentences)
 app.post('/api/interactive-submissions', async (req, res) => {
-  const { pageTitle, sectionTitle, sectionIndex, originalText, updatedText, submissionType } = req.body;
+  const { pageTitle, sectionTitle, sectionIndex, originalText, updatedText, submissionType, email, prolificId, studyType } = req.body;
 
   // Check if database is available
   if (!process.env.DATABASE_URL) {
@@ -131,10 +167,10 @@ app.post('/api/interactive-submissions', async (req, res) => {
 
   try {
     const result = await pool.query(
-      `INSERT INTO interactive_submissions (page_title, section_title, section_index, original_text, updated_text, submission_type)
-       VALUES ($1, $2, $3, $4, $5, $6)
+      `INSERT INTO interactive_submissions (page_title, section_title, section_index, original_text, updated_text, submission_type, email, prolific_id, study_type)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
        RETURNING id, created_at;`,
-      [pageTitle, sectionTitle, sectionIndex, originalText, updatedText, submissionType]
+      [pageTitle, sectionTitle, sectionIndex, originalText, updatedText, submissionType, email || null, prolificId || null, studyType || null]
     );
 
     res.status(201).json({
