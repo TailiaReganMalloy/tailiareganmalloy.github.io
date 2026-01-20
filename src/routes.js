@@ -10,6 +10,7 @@ import ExperimentsPage from './pages/experiments.vue';
 import StudyEntryPage from './pages/hidden/studyEntry.vue';
 import BaseExplanationPage from './pages/hidden/baseExplain/baseExplanationPage.vue'
 import staticExplanationPage from './pages/hidden/staticExplain/staticExplanationPage.vue'
+import textExplanationPage from './pages/hidden/textExplain/textExplanationPage.vue'
 
 // Dynamically import all experiment-specific route definition files.
 // Each file at ./pages/experiments/<experiment>/routes.js should export either:
@@ -36,8 +37,10 @@ const routes = [
   { path: '/studyEntry', name: 'studyEntry', component: StudyEntryPage },
   { path: '/baseExplanation', name: 'baseExplanation', component: StudyEntryPage, props: { studyType: 'base' } },
   { path: '/staticExplanation', name: 'staticExplanation', component: StudyEntryPage, props: { studyType: 'static' } },
+  { path: '/textExplanation', name: 'textExplanation', component: StudyEntryPage, props: { studyType: 'text' } },
   { path: '/baseExplanation/study', name: 'baseExplanationStudy', component: BaseExplanationPage },
   { path: '/staticExplanation/study', name: 'staticExplanationStudy', component: staticExplanationPage },
+  { path: '/textExplanation/study', name: 'textExplanationStudy', component: textExplanationPage },
   // Spread in dynamically discovered experiment routes
   ...experimentRoutes
 ];

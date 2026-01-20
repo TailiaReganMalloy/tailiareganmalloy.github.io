@@ -47,6 +47,8 @@ async function initializeDatabase() {
         email VARCHAR(255),
         prolific_id VARCHAR(255),
         study_type VARCHAR(50),
+        session_id VARCHAR(255),
+        completion_token VARCHAR(255),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
@@ -64,6 +66,12 @@ async function initializeDatabase() {
         IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='student_responses' AND column_name='study_type') THEN
           ALTER TABLE student_responses ADD COLUMN study_type VARCHAR(50);
         END IF;
+        IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='student_responses' AND column_name='session_id') THEN
+          ALTER TABLE student_responses ADD COLUMN session_id VARCHAR(255);
+        END IF;
+        IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='student_responses' AND column_name='completion_token') THEN
+          ALTER TABLE student_responses ADD COLUMN completion_token VARCHAR(255);
+        END IF;
       END $$;
     `);
     await pool.query(`
@@ -78,6 +86,8 @@ async function initializeDatabase() {
         email VARCHAR(255),
         prolific_id VARCHAR(255),
         study_type VARCHAR(50),
+        session_id VARCHAR(255),
+        completion_token VARCHAR(255),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
@@ -94,6 +104,12 @@ async function initializeDatabase() {
         IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='interactive_submissions' AND column_name='study_type') THEN
           ALTER TABLE interactive_submissions ADD COLUMN study_type VARCHAR(50);
         END IF;
+        IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='interactive_submissions' AND column_name='session_id') THEN
+          ALTER TABLE interactive_submissions ADD COLUMN session_id VARCHAR(255);
+        END IF;
+        IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='interactive_submissions' AND column_name='completion_token') THEN
+          ALTER TABLE interactive_submissions ADD COLUMN completion_token VARCHAR(255);
+        END IF;
       END $$;
     `);
     console.log('✓ Database tables initialized successfully');
@@ -106,7 +122,7 @@ async function initializeDatabase() {
 
 // Save student response endpoint
 app.post('/api/responses', async (req, res) => {
-  const { pageTitle, sectionTitle, sectionIndex, responseText, email, prolificId, studyType } = req.body;
+  const { pageTitle, sectionTitle, sectionIndex, responseText, email, prolificId, studyType, sessionId, completionToken } = req.body;
 
   // Check if database is available
   if (!process.env.DATABASE_URL) {
@@ -125,10 +141,10 @@ app.post('/api/responses', async (req, res) => {
 
   try {
     const result = await pool.query(
-      `INSERT INTO student_responses (page_title, section_title, section_index, response_text, email, prolific_id, study_type)
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
+      `INSERT INTO student_responses (page_title, section_title, section_index, response_text, email, prolific_id, study_type, session_id, completion_token)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
        RETURNING id, created_at;`,
-      [pageTitle, sectionTitle, sectionIndex, responseText, email || null, prolificId || null, studyType || null]
+      [pageTitle, sectionTitle, sectionIndex, responseText, email || null, prolificId || null, studyType || null, sessionId || null, completionToken || null]
     );
 
     res.status(201).json({
@@ -148,7 +164,7 @@ app.post('/api/responses', async (req, res) => {
 
 // Save interactive submission endpoint (e.g., updated sentences)
 app.post('/api/interactive-submissions', async (req, res) => {
-  const { pageTitle, sectionTitle, sectionIndex, originalText, updatedText, submissionType, email, prolificId, studyType } = req.body;
+  const { pageTitle, sectionTitle, sectionIndex, originalText, updatedText, submissionType, email, prolificId, studyType, sessionId, completionToken } = req.body;
 
   // Check if database is available
   if (!process.env.DATABASE_URL) {
@@ -167,10 +183,10 @@ app.post('/api/interactive-submissions', async (req, res) => {
 
   try {
     const result = await pool.query(
-      `INSERT INTO interactive_submissions (page_title, section_title, section_index, original_text, updated_text, submission_type, email, prolific_id, study_type)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      `INSERT INTO interactive_submissions (page_title, section_title, section_index, original_text, updated_text, submission_type, email, prolific_id, study_type, session_id, completion_token)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
        RETURNING id, created_at;`,
-      [pageTitle, sectionTitle, sectionIndex, originalText, updatedText, submissionType, email || null, prolificId || null, studyType || null]
+      [pageTitle, sectionTitle, sectionIndex, originalText, updatedText, submissionType, email || null, prolificId || null, studyType || null, sessionId || null, completionToken || null]
     );
 
     res.status(201).json({

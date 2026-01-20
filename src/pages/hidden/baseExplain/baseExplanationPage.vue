@@ -178,7 +178,13 @@ function generateCompletionToken() {
   return Math.random().toString(36).slice(2, 12).toUpperCase();
 }
 
+// Generate a unique session ID for this browser session
+function generateSessionId() {
+  return 'SES_' + Math.random().toString(36).slice(2, 10).toUpperCase() + '_' + Date.now().toString(36).toUpperCase();
+}
+
 const completionToken = ref(generateCompletionToken());
+const sessionId = ref(generateSessionId());
 const title = ref(frontmatter.title || 'Fill in the Blank');
 const sections = ref([]);
 const currentSectionIndex = ref(0);
@@ -327,6 +333,7 @@ async function saveResponse() {
         sectionIndex: currentSectionIndex.value,
         responseText: currentResponse.value,
         completionToken: completionToken.value,
+        sessionId: sessionId.value,
         email: userEmail.value,
         prolificId: userProlificId.value,
         studyType: studyType.value
@@ -369,6 +376,7 @@ async function saveInteractiveSubmission(submission) {
     
     // Add completion token and user info to submission
     submission.completionToken = completionToken.value;
+    submission.sessionId = sessionId.value;
     submission.email = userEmail.value;
     submission.prolificId = userProlificId.value;
     submission.studyType = studyType.value;
