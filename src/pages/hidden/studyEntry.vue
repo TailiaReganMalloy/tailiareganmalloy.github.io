@@ -71,6 +71,8 @@ function continueToStudy() {
     router.push('/staticExplanation/study');
   } else if (props.studyType === 'base') {
     router.push('/baseExplanation/study');
+  } else if (props.studyType === 'text') {
+    router.push('/textExplanation/study');
   } else {
     // Default fallback - shouldn't normally happen
     router.push('/');
