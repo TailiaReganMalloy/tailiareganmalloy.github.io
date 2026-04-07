@@ -13,9 +13,10 @@ const projects = Object.entries(projectModules).map(([path, mod]) => {
   let image = meta.image || meta.thumbnail || null
   if (image && image.default) image = image.default
   const description = meta.description || ''
+  const tags = Array.isArray(meta.tags) ? meta.tags : []
   const route = `/projects/${name}`
   console.log('Project loaded:', { name, title, image, description, route, meta })
-  return { name, title, image, description, route }
+  return { name, title, image, description, tags, route }
 })
 
 defineOptions({ 
@@ -65,6 +66,16 @@ defineOptions({
               <div class="p-4">
                 <h3 class="text-lg font-semibold"><a :href="proj.route" class="hover:underline">{{ proj.title }}</a></h3>
                 <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">{{ proj.description }}</p>
+                <div v-if="proj.tags && proj.tags.length" class="mt-3 flex flex-wrap gap-2">
+                  <RouterLink
+                    v-for="tag in proj.tags"
+                    :key="`${proj.name}-${tag}`"
+                    :to="{ name: 'tags', params: { tag } }"
+                    class="text-xs bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded hover:bg-gray-300 dark:hover:bg-gray-600"
+                  >
+                    {{ tag }}
+                  </RouterLink>
+                </div>
               </div>
             </article>
           </template>

@@ -6,7 +6,7 @@
       <div v-if="!showDetail">
         <img
           :src="meta.image"
-          alt="Cognitive Modeling"
+          alt="Cybersecurity"
           class="w-full h-64 object-cover rounded mb-6 cursor-pointer"
           @click="showDetail = true"
         />
@@ -15,7 +15,7 @@
         <div v-if="meta.tags && meta.tags.length" class="mt-3 mb-4 flex flex-wrap justify-center gap-2">
           <RouterLink
             v-for="tag in meta.tags"
-            :key="`cog-${tag}`"
+            :key="`cyber-${tag}`"
             :to="{ name: 'tags', params: { tag } }"
             class="text-xs bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded hover:bg-gray-300 dark:hover:bg-gray-600"
           >
@@ -27,14 +27,14 @@
         <div class="flex flex-col items-center mb-8">
           <img
             :src="meta.image"
-            alt="Cognitive Modeling"
+            alt="Cybersecurity"
             class="w-full h-64 object-cover rounded mb-4"
           />
           <h1 class="text-3xl font-bold mb-2 text-center">{{ meta.title }}</h1>
           <div v-if="meta.tags && meta.tags.length" class="mt-2 flex flex-wrap justify-center gap-2">
             <RouterLink
               v-for="tag in meta.tags"
-              :key="`cog-detail-${tag}`"
+              :key="`cyber-detail-${tag}`"
               :to="{ name: 'tags', params: { tag } }"
               class="text-xs bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded hover:bg-gray-300 dark:hover:bg-gray-600"
             >
@@ -44,24 +44,7 @@
         </div>
         <div class="mb-8">
           <h2 class="text-xl font-semibold mb-2">Description</h2>
-          <p class="text-gray-700 dark:text-gray-300 mb-4">
-            Computational cognitive modeling combines psychological theory with computational methods to understand and simulate human cognition. 
-            This project focuses on developing models that can predict human decision-making, learning, and problem-solving behaviors across various domains.
-          </p>
-          <p class="text-gray-700 dark:text-gray-300 mb-4">
-            Our approach leverages instance-based learning theory, reinforcement learning, and other cognitive architectures to create 
-            models that not only fit behavioral data but also provide insights into the underlying cognitive processes.
-          </p>
-          <p class="text-gray-700 dark:text-gray-300">
-            Key areas of focus include:
-          </p>
-          <ul class="list-disc pl-6 text-gray-700 dark:text-gray-300 mt-2">
-            <li>Instance-Based Learning (IBL) models</li>
-            <li>Cognitive architectures (ACT-R, IBLT)</li>
-            <li>Decision-making under uncertainty</li>
-            <li>Human-AI interaction and adaptation</li>
-            <li>Individual differences in cognition</li>
-          </ul>
+          <p class="text-gray-700 dark:text-gray-300">{{ meta.description }}</p>
         </div>
         <div class="mb-8">
           <h2 class="text-xl font-semibold mb-2">Papers</h2>
@@ -92,10 +75,9 @@
         <div>
           <h2 class="text-xl font-semibold mb-2">References</h2>
           <ul class="list-disc pl-6 text-gray-700 dark:text-gray-300">
-            <li><a href="https://www.cmu.edu/dietrich/sds/ddmlab/index.html" target="_blank" class="text-blue-600 hover:underline">Dynamic Decision Making Laboratory - CMU</a></li>
-            <li><a href="http://act-r.psy.cmu.edu/" target="_blank" class="text-blue-600 hover:underline">ACT-R Cognitive Architecture</a></li>
-            <li><a href="https://www.sciencedirect.com/science/article/pii/S0010028511000910" target="_blank" class="text-blue-600 hover:underline">Instance-Based Learning Theory (Gonzalez et al., 2011)</a></li>
-            <li><a href="https://psycnet.apa.org/record/2019-00310-001" target="_blank" class="text-blue-600 hover:underline">Cognitive Models of Human Decision Making</a></li>
+            <li><a href="https://www.usenix.org/conference/usenixsecurity23/presentation/lee" target="_blank" class="text-blue-600 hover:underline">Phishing Detection Research (USENIX Security 2023)</a></li>
+            <li><a href="https://www.microsoft.com/en-us/security/business/security-intelligence/phishing" target="_blank" class="text-blue-600 hover:underline">Microsoft Security Intelligence: Phishing</a></li>
+            <li><a href="https://www.ncsc.gov.uk/guidance/phishing" target="_blank" class="text-blue-600 hover:underline">UK National Cyber Security Centre: Phishing Guidance</a></li>
           </ul>
         </div>
       </div>
@@ -106,13 +88,13 @@
 
 <script>
 // Project meta info for project listing
-import modelingImage from '@/assets/img/CognitiveModeling.png';
+import cyberSecurityImage from '@/assets/img/CyberSecurity.png';
 
 export const meta = {
-  title: 'Computational Cognitive Modeling',
-  image: modelingImage,
-  description: 'Research focused on developing computational models of human cognition, decision-making, and learning using cognitive architectures and machine learning techniques.',
-  tags: ['Cognitive Modeling', 'Decision Making', 'Human-AI']
+  title: 'Cybersecurity',
+  image: cyberSecurityImage,
+  description: 'Project related to cybersecurity in the areas of anti-phishing training and AI recommendation systems for network analysis.',
+  tags: ['Cybersecurity', 'LLM', 'Human-AI']
 }
 </script>
 
@@ -122,5 +104,5 @@ import Header from '@/components/header.vue';
 import { useProjectPapers } from '@/composables/useProjectPapers';
 
 const showDetail = ref(true);
-const projectPapers = useProjectPapers('cognitiveModeling');
+const projectPapers = useProjectPapers('cyberSecurity');
 </script>

@@ -1,5 +1,6 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import Header from '@/components/header.vue';
 
 defineOptions({ name: 'BlogPage' });
@@ -8,6 +9,8 @@ const posts = ref([]);
 const selectedYear = ref(null);
 const selectedPost = ref(null);
 const loading = ref(true);
+const route = useRoute();
+const router = useRouter();
 
 // Parse frontmatter from markdown content
 const parseFrontmatter = (content) => {
@@ -19,13 +22,30 @@ const parseFrontmatter = (content) => {
   const frontmatter = match[1];
   const body = match[2];
   const metadata = {};
-  
-  frontmatter.split('\n').forEach(line => {
+  let currentArrayKey = null;
+
+  frontmatter.split('\n').forEach((line) => {
+    const trimmedLine = line.trim();
+    if (!trimmedLine) return;
+
+    if (trimmedLine.startsWith('- ') && currentArrayKey) {
+      if (!Array.isArray(metadata[currentArrayKey])) metadata[currentArrayKey] = [];
+      metadata[currentArrayKey].push(trimmedLine.slice(2).replace(/^["']|["']$/g, '').trim());
+      return;
+    }
+
+    currentArrayKey = null;
     const colonIndex = line.indexOf(':');
     if (colonIndex > 0) {
       const key = line.substring(0, colonIndex).trim();
       let value = line.substring(colonIndex + 1).trim();
-      // Remove quotes from strings
+
+      if (!value) {
+        metadata[key] = [];
+        currentArrayKey = key;
+        return;
+      }
+
       value = value.replace(/^["']|["']$/g, '');
       metadata[key] = value;
     }
@@ -55,7 +75,11 @@ const loadPosts = async () => {
         title: metadata.title || 'Untitled',
         date: metadata.date || '',
         draft: metadata.draft === 'true' || metadata.draft === true,
-        tags: metadata.tags || [],
+        tags: Array.isArray(metadata.tags)
+          ? metadata.tags
+          : metadata.tags
+            ? [metadata.tags]
+            : [],
         excerpt: getExcerpt(body),
         content: body,
         metadata
@@ -102,11 +126,15 @@ const selectYear = (year) => {
 
 const viewPost = (post) => {
   selectedPost.value = post;
+  router.replace({ query: { ...route.query, post: post.filename } });
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
 const backToList = () => {
   selectedPost.value = null;
+  const nextQuery = { ...route.query };
+  delete nextQuery.post;
+  router.replace({ query: nextQuery });
 };
 
 // Format date for display
@@ -158,6 +186,21 @@ const renderMarkdown = (markdown) => {
 onMounted(() => {
   loadPosts();
 });
+
+watch(
+  () => [route.query.post, posts.value.length],
+  ([postFile, count]) => {
+    if (!count) return;
+    if (!postFile || typeof postFile !== 'string') {
+      selectedPost.value = null;
+      return;
+    }
+
+    const matchingPost = posts.value.find((post) => post.filename === postFile);
+    selectedPost.value = matchingPost || null;
+  },
+  { immediate: true }
+);
 </script>
 
 <template>
@@ -214,13 +257,15 @@ onMounted(() => {
               {{ post.excerpt }}
             </p>
             <div v-if="post.tags && post.tags.length" class="mt-3 flex flex-wrap gap-2">
-              <span
+              <RouterLink
                 v-for="tag in post.tags"
                 :key="tag"
-                class="text-xs bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded"
+                :to="{ name: 'tags', params: { tag } }"
+                class="text-xs bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded hover:bg-gray-300 dark:hover:bg-gray-600"
+                @click.stop
               >
                 {{ tag }}
-              </span>
+              </RouterLink>
             </div>
           </article>
         </div>
@@ -241,13 +286,14 @@ onMounted(() => {
             {{ formatDate(selectedPost.date) }}
           </p>
           <div v-if="selectedPost.tags && selectedPost.tags.length" class="mb-6 flex flex-wrap gap-2">
-            <span
+            <RouterLink
               v-for="tag in selectedPost.tags"
               :key="tag"
-              class="text-sm bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded"
+              :to="{ name: 'tags', params: { tag } }"
+              class="text-sm bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded hover:bg-gray-300 dark:hover:bg-gray-600"
             >
               {{ tag }}
-            </span>
+            </RouterLink>
           </div>
           <div
             class="prose dark:prose-invert max-w-none"

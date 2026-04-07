@@ -77,7 +77,8 @@ import fillInBlankThumb from './source/img/wiki-years.png';
 export const meta = {
   title: 'What Have Language Models Learned?',
   image: fillInBlankThumb,
-  description: 'By asking language models to fill in the blank, we can probe their understanding of the world.'
+  description: 'By asking language models to fill in the blank, we can probe their understanding of the world.',
+  tags: ['LLM', 'Experiment', 'Language Models']
 }
 </script>
 

@@ -3,15 +3,18 @@ import HomePage from './pages/index.vue';
 import CVPage from './pages/cv.vue';
 import CvpdfPage from './pages/cvpdf.vue';
 import BlogPage from './pages/blog.vue';
-import AntiPhishingPage from './pages/projects/antiPhishing.vue';
+import PapersPage from './pages/papers.vue';
+import PaperPage from './pages/papers/paper.vue';
+import TeachingPage from './pages/teaching.vue';
+import TeachingMaterialPage from './pages/teaching/material.vue';
+import TagsPage from './pages/tags.vue';
+import CyberSecurityPage from './pages/projects/cyberSecurity.vue';
 import CognitiveModelingPage from './pages/projects/cognitiveModeling.vue';
-import GenerativeAIPage from './pages/projects/generativeAI.vue';
+import HumanComputerInteractionPage from './pages/projects/humanComputerInteraction.vue';
+import LargeLanguageModelsPage from './pages/projects/largeLanguageModels.vue';
+import VisualArtificialIntelligencePage from './pages/projects/visualArtificialIntelligence.vue';
+import ReinforcementLearningPage from './pages/projects/reinforcementLearning.vue'; 
 import ExperimentsPage from './pages/experiments.vue';
-import StudyEntryPage from './pages/hidden/studyEntry.vue';
-import BaseExplanationPage from './pages/hidden/baseExplain/baseExplanationPage.vue'
-import staticExplanationPage from './pages/hidden/staticExplain/staticExplanationPage.vue'
-import textExplanationPage from './pages/hidden/textExplain/textExplanationPage.vue'
-
 // Dynamically import all experiment-specific route definition files.
 // Each file at ./pages/experiments/<experiment>/routes.js should export either:
 //   export default [ { path, name, component }, ... ]
@@ -30,18 +33,18 @@ const routes = [
   { path: '/cv', name: 'Cv', component: CVPage },
   { path: '/cvpdf', name: 'Cvpdf', component: CvpdfPage },
   { path: '/blog', name: 'Blog', component: BlogPage },
-  { path: '/projects/antiPhishing', name: 'AntiPhishing', component: AntiPhishingPage },
-  { path: '/projects/cognitiveModeling', name: 'CognitiveModeling', component: CognitiveModelingPage },
-  { path: '/projects/generativeAI', name: 'generativeAI', component: GenerativeAIPage },
+  { path: '/papers', name: 'papers', component: PapersPage },
+  { path: '/papers/:slug', name: 'paper', component: PaperPage },
+  { path: '/teaching', name: 'teaching', component: TeachingPage },
+  { path: '/teaching/:slug', name: 'teaching-material', component: TeachingMaterialPage },
+  { path: '/tags/:tag', name: 'tags', component: TagsPage },
+  { path: '/projects/cognitiveModeling', name: 'cognitiveModeling', component: CognitiveModelingPage },
+  { path: '/projects/cyberSecurity', name: 'cyberSecurity', component:  CyberSecurityPage},
+  { path: '/projects/humanComputerInteraction', name: 'humanComputerInteraction', component: HumanComputerInteractionPage },
+  { path: '/projects/largeLanguageModels', name: 'largeLanguageModels', component:  LargeLanguageModelsPage},
+  { path: '/projects/reinforcementLearning', name: 'reinforcementLearning', component: ReinforcementLearningPage },
+  { path: '/projects/visualArtificialIntelligence', name: 'visualArtificialIntelligence', component: VisualArtificialIntelligencePage },
   { path: '/experiments', name: 'experimentsPage', component: ExperimentsPage },
-  { path: '/studyEntry', name: 'studyEntry', component: StudyEntryPage },
-  { path: '/baseExplanation', name: 'baseExplanation', component: StudyEntryPage, props: { studyType: 'base' } },
-  { path: '/staticExplanation', name: 'staticExplanation', component: StudyEntryPage, props: { studyType: 'static' } },
-  { path: '/textExplanation', name: 'textExplanation', component: StudyEntryPage, props: { studyType: 'text' } },
-  { path: '/baseExplanation/study', name: 'baseExplanationStudy', component: BaseExplanationPage },
-  { path: '/staticExplanation/study', name: 'staticExplanationStudy', component: staticExplanationPage },
-  { path: '/textExplanation/study', name: 'textExplanationStudy', component: textExplanationPage },
-  // Spread in dynamically discovered experiment routes
   ...experimentRoutes
 ];
 

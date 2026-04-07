@@ -37,8 +37,9 @@ function goToSection(hash) {
           <li><button @click.prevent="goToSection('#about')" class="hover:underline">About</button></li>
           <li><button @click.prevent="goToSection('#projects')" class="hover:underline">Projects</button></li>
           <li><a href="/blog" class="hover:underline">Blog</a></li>
+          <li><a href="/papers" class="hover:underline">Papers</a></li>
           <li><a href="/cv" class="hover:underline">CV</a></li>
-          <li><a href="/experiments" class="hover:underline">Experiments</a></li>
+          <!-- Hidden for now: Teaching and Experiments links -->
         </ul>
       </nav>
   <div class="flex items-center space-x-2">
