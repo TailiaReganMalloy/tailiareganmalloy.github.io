@@ -16,6 +16,7 @@ projects:
   - reinforcementLearning
   - cognitiveModeling
   - aritificialIntelligence
+  - visualAritificalIntelligence
 ---
 
 # Modelling Visual Decision Making Using a Variational Autoencoder

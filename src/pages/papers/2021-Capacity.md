@@ -13,6 +13,7 @@ tags:
 projects:
   - reinforcementLearning
   - artificialIntelligence
+  - visualAritificalIntelligence
 ---
 
 ## Paper Abstract 
