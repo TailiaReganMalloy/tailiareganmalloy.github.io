@@ -1,11 +1,11 @@
 ---
 title: "Modelling Visual Decision Making"
-date: 2023-03-30 
+date: 2021-06-01
 draft: false
 toc: false
 layout: post
 location: online
-permalink: /papers/2023-Learning
+permalink: /papers/2021-Modeling
 author_profile: false
 tags:
   - Reinforcement Learning

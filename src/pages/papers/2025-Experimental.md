@@ -1,11 +1,11 @@
 ---
 title: "Evaluating Cognitive Agents"
-date: 2023-03-30 
+date: 2025-09-30 
 draft: false
 toc: false
 layout: post
 location: online
-permalink: /papers/2023-Learning
+permalink: /papers/2025-Experimental
 author_profile: false
 tags:
   - Cyber Security 

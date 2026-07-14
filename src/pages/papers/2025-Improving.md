@@ -1,11 +1,11 @@
 ---
 title: "Improving Anti-Phishing Training"
-date: 2023-03-30 
+date: 2025-12-30 
 draft: false
 toc: false
 layout: post
 location: online
-permalink: /papers/2023-Learning
+permalink: /papers/2025-Improving
 author_profile: false
 tags:
   - Reinforcement Learning

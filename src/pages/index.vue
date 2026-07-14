@@ -45,7 +45,7 @@ defineOptions({
       <div class="max-w-3xl mx-auto text-center">
         <h1 class="text-3xl font-semibold">About</h1>
         <p class="mt-6 text-gray-600 dark:text-gray-300 leading-relaxed">
-          Hello! My name is Tailia Malloy. I am a researcher in human and machine learning. I am currently a postdoctoral researcher at the University of Luxembourg working under the advisement of <a href="https://scholar.google.com/citations?user=t73Mqm8AAAAJ&hl=en&oi=ao" target="_blank" rel="noopener" class="text-blue-600 hover:underline"> Professor Tegawendé F. Bissyandé</a> studying Human-Computer Interaction with a focus on LLM applications in software engineering and human resources. This is a joint research effort between the private HR technology company <a href="https://zortify.com/labs/" target="_blank" rel="noopener" class="text-blue-600 hover:underline">Zortify</a> and the <a href="https://www.uni.lu/snt-en/research-groups/trux/" target="_blank" rel="noopener" class="text-blue-600 hover:underline">Trustworthy Software Engineering (TruX) Lab</a>.
+          Hello! My name is Tailia Malloy. I am a researcher in human and machine learning. I am currently a postdoctoral researcher at the University of Luxembourg working under the advisement of <a href="https://scholar.google.com/citations?user=t73Mqm8AAAAJ&hl=en&oi=ao" target="_blank" rel="noopener" class="text-blue-600 hover:underline"> Professor Tegawendé F. Bissyandé</a> studying Human-Computer Interaction with a focus on LLM applications in software engineering and social engineering. 
         </p>
       </div>
     </section>

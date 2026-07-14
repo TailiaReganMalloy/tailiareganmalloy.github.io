@@ -5,7 +5,7 @@ draft: false
 toc: false
 layout: post
 location: online
-permalink: /papers/2023-Learning
+permalink: /papers/2023-Defend 
 author_profile: false
 tags:
   - Cognitive Modelling

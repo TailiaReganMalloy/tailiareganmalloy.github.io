@@ -1,11 +1,11 @@
 ---
 title: "Subjective Similarity of AI Written Content"
-date: 2023-03-30 
+date: 2024-12-30 
 draft: false
 toc: false
 layout: post
 location: online
-permalink: /papers/2023-Learning
+permalink: /papers/2024-Leveraging
 author_profile: false
 tags:
   - Reinforcement Learning

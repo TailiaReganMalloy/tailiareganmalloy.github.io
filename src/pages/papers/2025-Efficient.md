@@ -1,11 +1,11 @@
 ---
 title: "Efficient Visual Representations"
-date: 2023-03-30 
+date: 2025-03-30 
 draft: false
 toc: false
 layout: post
 location: online
-permalink: /papers/2023-Learning
+permalink: /papers/2025-Efficient
 author_profile: false
 tags:
   - Reinforcement Learning

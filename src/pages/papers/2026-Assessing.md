@@ -1,11 +1,11 @@
 ---
 title: "Assessing Spear-Phishing in LLMs"
-date: 2023-03-30 
+date: 2026-03-30 
 draft: false
 toc: false
 layout: post
 location: online
-permalink: /papers/2023-Learning
+permalink: /papers/2026-Assessing
 author_profile: false
 tags:
   - Reinforcement Learning

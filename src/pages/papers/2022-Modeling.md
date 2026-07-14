@@ -1,11 +1,11 @@
 ---
-title: "Learning in Factored Domains"
-date: 2023-03-30 
+title: "Modeling Human Reinforcement Learning"
+date: 2022-07-01
 draft: false
 toc: false
 layout: post
 location: online
-permalink: /papers/2023-Learning
+permalink: /papers/2022-Modeling 
 author_profile: false
 tags:
   - Reinforcement Learning
@@ -18,7 +18,7 @@ projects:
   - aritificialIntelligence
 ---
 
-# Learning in Factored Domains with Information-Constrained Visual Representations
+# Modeling human reinforcement learning with disentangled visual representations
 
 ## Paper Abstract 
 

@@ -5,7 +5,7 @@ draft: false
 toc: false
 layout: post
 location: online
-permalink: /papers/2023-Learning
+permalink: /papers/2021-Capacity
 author_profile: false
 tags:
   - Reinforcement Learning

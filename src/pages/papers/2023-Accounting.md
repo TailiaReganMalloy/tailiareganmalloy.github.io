@@ -5,7 +5,7 @@ draft: false
 toc: false
 layout: post
 location: online
-permalink: /papers/2023-Learning
+permalink: /papers/2023-Accounting
 author_profile: false
 tags:
   - Reinforcement Learning

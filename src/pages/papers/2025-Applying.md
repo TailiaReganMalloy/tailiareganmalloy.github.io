@@ -1,11 +1,11 @@
 ---
 title: "AI in Compuational Cognitive Models"
-date: 2022-01-15
+date: 2025-01-15
 draft: false
 toc: false
 layout: post
 location: online
-permalink: /posts/2022-01-15
+permalink: /papers/2025-Applying
 author_profile: false
 tags:
   - Generative Artificial Intelligence 
