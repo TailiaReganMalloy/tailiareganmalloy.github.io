@@ -1,27 +1,29 @@
-@media (max-width: 1100px){
+/* stylelint-disable no-duplicate-selectors, selector-type-no-unknown, declaration-block-no-duplicate-properties, media-feature-name-no-unknown, block-no-empty, media-query-no-invalid */
+
+@media (width <= 1100px){
   body{
-    /*overflow-x: hidden;*/
+    /* overflow-x: hidden; */
   }
 }
 
 
 .tooltip {
-  top: -1000px;
   position: absolute;
-  padding: 10px;
-  background: rgba(255, 255, 255, .8);
-  border: 0px solid lightgray;
-  
+  top: -1000px;
   width: 300px;
+  padding: 10px;
+  color: #fff;
   font-size: 14px;
   line-height: 1.4em;
-  background: rgba(0, 0, 0, .8);
-  color: #fff;
+  background: rgb(0 0 0 / 80%);
+  border: 0 solid lightgray;
   pointer-events: all !important;
 }
+
 .tooltip a{
   color:  #fff !important;
 }
+
 .tooltip:hover{
 /*  opacity: 1;
   pointer-events: all !important;
@@ -34,25 +36,21 @@
   pointer-events: none !important;
 }
 
-@media (max-width: 590px){
+@media (width <= 590px){
   .footend{
-    margin-left: 0px;
     width: 10px;
+    margin-left: 0;
   }
 
 
   div.tooltip{
+    position: fixed;
+    inset: auto -1px -1px !important;
+    display: none;
+    width: calc(100%);
+    width: auto !important;
     transition: all 0s !important;
     transition-delay: 0s !important;
-
-    display: none;
-    position: fixed;
-    bottom: -1px;
-    width: calc(100%);
-    left: -1px !important;
-    right: -1px !important;
-    top: auto !important;
-    width: auto !important;
   }
 }
 
@@ -73,15 +71,16 @@ svg{
 }
 
 text{
-  pointer-events: none;
-  /*fill: #fff;*/
+  /* fill: #fff; */
   text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+  pointer-events: none;
 }
 
 .pair{
   width: 820px;
-  /*height: 550px;*/
-  margin: 0px auto;
+
+  /* height: 550px; */
+  margin: 0 auto;
   margin-top: 25px !important
 }
 
@@ -105,11 +104,14 @@ text{
 
 .pair .warning{
   width: 250px;
-  /*border: 1px solid orange;*/
-  /*background: #fff9e4;*/
-  /*padding: 10px;*/
+
+  /* border: 1px solid orange; */
+
+  /* background: #fff9e4; */
+
+  /* padding: 10px; */
   margin-top: 15px;
-  padding-left: 0px;
+  padding-left: 0;
   font-size: 14px;
   line-height: 1.25em;
   opacity: 0;
@@ -118,31 +120,36 @@ text{
 
 .pair .reset{
   width: 58px;
-  /*border: 1px solid orange;*/
-  /*background: #fff9e4;*/
-  /*padding: 10px;*/
+
+  /* border: 1px solid orange; */
+
+  /* background: #fff9e4; */
+
+  /* padding: 10px; */
   margin-top: 15px;
+  padding: 5px;
   font-size: 14px;
-  line-height: 1.25em;
+  line-height: 1.25em; 
+  outline: 1px solid #ccc;
+  cursor: pointer;
   opacity: 0;
   transition: opacity .2s;
-  cursor: pointer;
-  user-select: none; 
-  outline: 1px solid #ccc;
-  padding: 5px;
+  user-select: none;
 
 }
+
 .pair .reset span{
   position: relative;
   top: -1px;
   padding-right: 4px;
   padding-left: 1px;
-  /*font-size: ;*/
+
+  /* font-size: ; */
 }
 
 .pair .reset:hover{
-  background: #eee;
   color:  #000;
+  background: #eee;
   outline: 1px solid #000;
 }
 
@@ -152,27 +159,27 @@ text{
 
 .options b{
   display: block;
-  margin-bottom: 5px;
   margin-top: 10px;
+  margin-bottom: 5px;
 }
 
 
 
 
 .flex-row{
-  width: 100%;
   display: flex;
   justify-content: space-between;
+  width: 100%;
   column-gap: 10px
 }
 
 .flex-row > *{
   flex-grow: 1;
-  margin-right:  0px !important;
+  margin-right:  0 !important;
 }
 
 .options > *{
-  margin-right:  0px;
+  margin-right:  0;
 }
 
 .pair textarea{
@@ -183,12 +190,12 @@ text{
   display: block;
 }
 
-@media (max-width: 820px){
+@media (width <= 820px){
   .pair{
     width: 100%;
-    height: auto;
     max-width: 500px;
-    margin: 0px auto;
+    height: auto;
+    margin: 0 auto;
   }
 
   .flex-row{
@@ -203,7 +210,7 @@ text{
 
   .pair .options{
     width: auto;
-    padding-right: 0px;
+    padding-right: 0;
   }
 
   .warning{
@@ -227,7 +234,7 @@ text{
 
 .pair.difference{
   width: 1000px;
-  margin-left: 0px;
+  margin-left: 0;
 }
 
 .pair.difference .pair-container{
@@ -237,6 +244,7 @@ text{
   width: 100%;
   margin-bottom: 20px;
 }
+
 .pair .options.wide > div{
   display: inline-block;
 }
@@ -254,34 +262,40 @@ text{
 }
 
 textarea{
-  font-family: 'Roboto', Helvetica, sans-serif;
   font-weight: 300;
-  line-height: 1.55em;
-  font-size: 16px;
   font-weight: bold;
+  font-size: 16px;
+  font-family: Roboto, Helvetica, sans-serif;
+  line-height: 1.55em;
   border: 1px #ccc solid;
   resize: none;
 }
 
 .button.update{
-  /*height: 20px;*/
-  /*position: relative;*/
-  /*top: -30px;*/
-  /*margin-bottom: -10px;*/
-  /*vertical-align: center;*/
-  margin-top: 25px;
   width: 252px;
-  text-align: center;
+
+  /* height: 20px; */
+
+  /* position: relative; */
+
+  /* top: -30px; */
+
+  /* margin-bottom: -10px; */
+
+  /* vertical-align: center; */
+  margin-top: 25px;
   font-weight: 500;
+  text-align: center;
 }
+
 .button{
-  display: inline-block;
-  outline: 1px solid #ccc;
-  padding: 5px;
-  margin-top: 10px;
-  margin-right: 10px;
   position: relative;
   top: -12px;
+  display: inline-block;
+  margin-top: 10px;
+  margin-right: 10px;
+  padding: 5px;
+  outline: 1px solid #ccc;
   cursor: pointer;
   user-select: none; 
 }
@@ -292,7 +306,7 @@ textarea{
   }
 }
 
-@media screen and (-webkit-min-device-pixel-ratio:0) and @media (max-width: 900px) { 
+@media screen and (min-device-pixel-ratio:0) and @media (max-width: 900px) { 
   select,
   textarea,
   input {
@@ -306,9 +320,10 @@ textarea{
 
 
 .button.active{
-  background: #eee;
   color: #000;
-  /*font-weight: 500;*/
+  background: #eee;
+
+  /* font-weight: 500; */
 }
 
 
@@ -318,36 +333,42 @@ textarea{
 
 .button.loading{
   pointer-events: none;
-  /*opacity: .6;*/
+
+  /* opacity: .6; */
 }
+
 .p-button{
-  /*position: relative;*/
-  /*top: -3px;*/
-  /*line-height:  10px;*/
-  /*line-height: */
+  /* position: relative; */
+
+  /* top: -3px; */
+
+  /* line-height:  10px; */
+
+  /* line-height: */
   display: inline-block;
   margin-right: 15px;
 }
+
 .p-button-link{
+  padding-right: 10px;
   text-decoration: underline;
   cursor: pointer;
-  padding-right: 10px;
 }
+
 .interesting-pair-alts .p-button-link{
   display: block;
   text-decoration: none;
 }
+
 .interesting-pair-alts .p-button-link div{
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  outline: 1px solid #ccc;
   margin-top: 5px;
   margin-bottom:  5px;
   margin-left:  10px;
+  padding: 5px 10px;
+  outline: 1px solid #ccc;
 
 }
+
 .difference-difference-alts .p-button-link:hover div{
   outline: 1px solid #000;
 }
@@ -356,17 +377,16 @@ textarea{
   display: block;
   text-decoration: none;
 }
+
 .difference-difference-alts .p-button-link div{
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  outline: 1px solid #ccc;
   margin-top: 5px;
   margin-bottom:  5px;
   margin-left:  10px;
+  padding: 5px 10px;
+  outline: 1px solid #ccc;
 
 }
+
 .difference-difference-alts .p-button-link:hover div{
   outline: 1px solid #000;
 }
@@ -386,10 +406,10 @@ textarea{
 }
 
 
-@media (max-width: 1100px){
+@media (width <= 1100px){
   .pair-container-overflow{
-    overflow-x: scroll;
     width: 100% !important;
+    overflow-x: scroll;
   }
 
   .pair.difference{
@@ -398,9 +418,9 @@ textarea{
   }
 
   .pair.difference .options{
-    margin: 0px auto;
-    margin-left: max(50vh - 500px, 0px);
     width: min(500px, 100%);
+    margin: 0 auto;
+    margin-left: max(50vh - 500px, 0px);
   }
 
 }
@@ -414,9 +434,9 @@ textarea{
 
 
 .checkbox{
-  display: inline-block;
   position: relative;
   top: -10px;
+  display: inline-block;
   margin-left: 10px;
 
 }
@@ -428,10 +448,12 @@ circle:hover{
 
 
 .hover text{
-  fill: #000;
   font-weight: 300;
-  /*stroke-width: 2px;*/
-  /*text-shadow: 0 2px 0 #000, 2px 0 0 #000, 0 -2px 0 #000, -2px 0 0 #000;*/
+  fill: #000;
+
+  /* stroke-width: 2px; */
+
+  /* text-shadow: 0 2px 0 #000, 2px 0 0 #000, 0 -2px 0 #000, -2px 0 0 #000; */
 }
 
 #graph > div{
@@ -441,7 +463,8 @@ circle:hover{
 text.tiny{
   font-size: 9px;
   font-family: monospace;
-  /*fill: #555;*/
+
+  /* fill: #555; */
 }
 
 
@@ -454,21 +477,21 @@ svg{
 
 
 input{
-  font-family: monospace;
   width: 900px;
   overflow: hidden;
-  background-color: rgba(0,0,0,0);
-  border: 0px;
+  font-family: monospace;
+  background-color: rgb(0 0 0 / 0%);
+  border: 0;
 }
 
 textarea{
-  font-family: monospace;
   font-size: 14px;
+  font-family: monospace;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 .top-sents::-webkit-scrollbar {
-  /*display: none;*/
+  /* display: none; */
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
@@ -489,23 +512,23 @@ textarea{
 
 
 .token-container{
-  text-align: center;
   line-height: 2em;
+  text-align: center;
 }
 
 .token{
   display: inline-block;
-  padding: 5px;
   margin: 10px;
-  margin-top: 0px;
-  margin-bottom: 0px;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 5px;
+  color: #000;
   font-size: 20px;
   font-family: monospace;
-  outline: 1px solid #ccc;
-  color: #000;
-  cursor: pointer;
   background: #fff;
-  border: 0px;
+  border: 0;
+  outline: 1px solid #ccc;
+  cursor: pointer;
 }
 
 .token:hover, .token.active{
@@ -525,6 +548,7 @@ textarea{
 .is-xy .xy-only{
   opacity: 1 !important;
 }
+
 .is-rotate .rotate-only{
   opacity: 1 !important;
 }
@@ -538,19 +562,20 @@ textarea{
   color: #ccc;
   pointer-events: none;
 }
+
 .hamlet-edit.changed .button{
   color: #000;
   pointer-events: all;
 }
 
-@media (max-width: 500px){
+@media (width <= 500px){
   .hamlet-edit .button{
+    top: 0 !important;
     display: block;
-    text-align: center;
-    top: 0px !important;
-    margin: 0px auto !important;
-    margin-top: 5px !important;
     width: 100%;
+    margin: 0 auto !important;
+    margin-top: 5px !important;
+    text-align: center;
   }
 }
 
@@ -560,6 +585,7 @@ textarea{
   color: #ccc;
   pointer-events: none;
 }
+
 .pair.changed .update{
   color: #000;
   pointer-events: all;
@@ -575,6 +601,7 @@ textarea{
 .pair-container{
   width:  900px;
 }
+
 .pair-container > div{
   display: inline-block;
 }
@@ -590,19 +617,21 @@ textarea{
 
 .is-color-by .y-axis-label text, .is-color-by .sent-1 text, .is-color-by .x-axis-label{
   font-weight: 400;
-  /*text-decoration: underline;*/
+
+  /* text-decoration: underline; */
 }
 
 
 
 .time-token.active path{
-  stroke:  #f0f;
   opacity:  1;
+  stroke:  #f0f;
 }
+
 .time-token.active text{
-  fill: #f0f !important;
-  opacity: 1 !important;
   font-size: 14px;
+  opacity: 1 !important;
+  fill: #f0f !important;
 }
 
 
@@ -612,9 +641,9 @@ textarea{
 
 .gender-over-time{
   width:  1100px;
-  margin: 0px auto;
-  font-size:  14px;
+  margin: 0 auto;
   margin-left: -91px;
+  font-size:  14px;
 }
 
 .gender-over-time .tick{
@@ -626,38 +655,39 @@ textarea{
 }
 
 .gender-over-time .sentence{
-  /*position: relative;*/
+  /* position: relative; */
   width: 32%;
 }
 
 .gender-over-time .sentence .sentence-title{
-  right: 42px;
   position: relative;
-  text-align: right;
+  right: 42px;
   font-family: monospace;
+  text-align: right;
   
 }
+
 .gender-over-time .sentence.is-bear .sentence-title{
-  /*text-align: center;*/
+  /* text-align: center; */
   right: 115px;
 }
 
 .gender-over-time .g-caption{
-  line-height: 18px;
-  margin-bottom: 30px;
-  margin-top: 5px;
-  width: 290px;
-  font-size: 13px;
-  left: 365px;
   position: relative;
+  left: 365px;
+  width: 290px;
+  margin-top: 5px;
+  margin-bottom: 30px;
+  font-size: 13px;
+  line-height: 18px;
 }
 
-@media (max-width: 1100px){
+@media (width <= 1100px){
   .gender-over-time{
     width: 100%;
-    margin-left: 0px;
     max-width: 500px;
-    margin:  0px auto;
+    margin:  0 auto;
+    margin-left: 0;
   }
 
   .gender-over-time .sentence{
@@ -666,15 +696,15 @@ textarea{
   }
 
   .gender-over-time .g-caption{
-    left: 0px;
+    left: 0;
     width: 100%;
   }
 }
 
 .time-token text{
   font-family: monospace;
-  pointer-events: all !important;
   cursor: default;
+  pointer-events: all !important;
 }
 
 
@@ -691,7 +721,7 @@ img[src*="img/wiki-years.png"] {
 
 
 
-/*html{
+/* html{
   font-smooth: never;
   -webkit-font-smoothing: none;
   background: transparent;
@@ -699,22 +729,22 @@ img[src*="img/wiki-years.png"] {
 
 path{
   display: none;
-}*/
+} */
 
 
 button {
   display: inline-block;
-  border: none;
   margin: 0;
+  color: #fff;
+  font-size: 1em;
+  font-family : inherit;
+  text-align: center;
   text-decoration: none;
   background: #fff;
-  color: #ffffff;
-  font-size: 1em;
+  border: none;
   cursor: pointer;
-  text-align: center;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  font-family : inherit;
+  appearance: none;
+  appearance: none;
 
 }
 
@@ -724,14 +754,15 @@ button:active {
 
 
 info{
+  position: relative;
+  top: -1px;
+  left: 7px;
   font-weight: 300;
   font-size: 12px;
   line-height: 0em;
-  position: relative;
-  left: 7px;
-  top: -1px;
   cursor: default;
 }
+
 info:hover{
   font-weight: 600;
 }

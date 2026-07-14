@@ -1,22 +1,22 @@
 
 .tooltip-footnote {
-  top: -1000px;
   position: absolute;
-  padding: 10px;
-  background: rgba(255, 255, 255, .8);
-  border: 0px solid lightgray;
-  
+  top: -1000px;
+  z-index: 1000;
   width: 300px !important;
+  padding: 10px;
+  color: #fff;
   font-size: 14px;
   line-height: 1.4em;
-  background: rgba(0, 0, 0, .8);
-  color: #fff;
+  background: rgb(0 0 0 / 80%);
+  border: 0 solid lightgray;
   pointer-events: all !important;
-  z-index: 1000;
 }
+
 .tooltip-footnote a{
   color: #fff !important;
 }
+
 .tooltip-footnote:hover{
 /*  opacity: 1;
   pointer-events: all !important;
@@ -29,34 +29,30 @@
   pointer-events: none !important;
 }
 
-@media (max-width: 590px){
+@media (width <= 590px){
   .footend{
-    margin-left: 0px;
     width: 10px;
+    margin-left: 0;
   }
 
   div.tooltip-footnote{
+    position: fixed;
+    inset: auto -1px -1px !important;
+    display: none;
+    width: calc(100%);
+    width: auto !important;
     transition: all 0s !important;
     transition-delay: 0s !important;
-
-    display: none;
-    position: fixed;
-    bottom: -1px;
-    width: calc(100%);
-    left: -1px !important;
-    right: -1px !important;
-    top: auto !important;
-    width: auto !important;
   }
 }
 
-/*@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100&display=swap');*/
+/* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100&display=swap'); */
 
 
 .footstart, .footend{
-  font-family: 'Lucida Grande', Tahoma, Verdana, Arial, sans-serif;
-  /*letter-spacing: -4px;*/
+  /* letter-spacing: -4px; */
   color: #555;
+  font-family: 'Lucida Grande', Tahoma, Verdana, Arial, sans-serif;
 
 }
 
@@ -68,12 +64,12 @@
   position: relative;
 }
 
-@media (min-width: 830px){
+@media (width >= 830px){
   .footend{
     position: absolute;
-    transform: translate(-100%, 0%);
-    margin-left: -3px;
     width:  auto;
+    margin-left: -3px;
+    transform: translate(-100%, 0%);
   }
 }
 
@@ -83,7 +79,8 @@
   position: relative;
   height: 8px !important;
   line-height: 0em;
-  /*font-family: 'Noto Sans' !important;*/
+
+  /* font-family: 'Noto Sans' !important; */
 }
 
 

@@ -1,29 +1,33 @@
 .list{
-  padding: 0px !important;
+  padding: 0 !important;
   line-height: 16px;
   background: #eee;
 }
+
 .list table{
-  -webkit-border-vertical-spacing: 0px;
-  -webkit-border-horizontal-spacing: 0px;
+  -webkit-border-vertical-spacing: 0;
+  -webkit-border-horizontal-spacing: 0;
   width: 100%;
 }
+
 .list tr{
   padding-bottom: 4px !important;
 }
+
 .list .header{
-  text-align: left;
   position: sticky;
-  top: 0px;
+  top: 0;
+  padding-top: 0;
+  text-align: left;
   background: #000;
-  padding-top: 0px;
 }
+
 th{
-  border-spacing: 0px;
   margin-top: px;
-  padding-top: 0px;
-  font-weight: 500;
+  padding-top: 0;
   color: #fff;
+  font-weight: 500;
+  border-spacing: 0;
 
 }
 
@@ -36,8 +40,9 @@ tr.sentence{
   color:  #333;
   scroll-margin-top: 17px
 }
+
 tr.sentence.active{
-  background: rgba(255,0,255,.1);
+  background: rgb(255 0 255 / 10%);
 } 
 
 tr td{

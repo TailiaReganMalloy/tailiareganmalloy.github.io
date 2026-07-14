@@ -262,7 +262,7 @@ onMounted(() => {
   color: #3C4043;
   font-weight: 300;
   font-size: 16px;
-  font-family: 'Roboto', Helvetica, sans-serif;
+  font-family: Roboto, Helvetica, sans-serif;
   line-height: 1.6em;
   background-color: #fff;
   -webkit-font-smoothing: antialiased;
@@ -271,24 +271,24 @@ onMounted(() => {
 
 /* Headings */
 .headline {
-  font-family: 'Google Sans', 'Roboto', sans-serif;
+  margin-top: 40px;
+  margin-bottom: 30px;
+  color: #202124;
   font-weight: 400;
   font-size: 36px;
+  font-family: 'Google Sans', Roboto, sans-serif;
   line-height: 1.3em;
   text-align: center;
-  color: #202124;
-  margin-bottom: 30px;
-  margin-top: 40px;
 }
 
 .section-title {
-  font-family: 'Google Sans', 'Roboto', sans-serif;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  color: #1a73e8;
   font-weight: 400;
   font-size: 28px;
-  color: #1a73e8;
-  margin-bottom: 20px;
-  margin-top: 10px;
-  padding-bottom: 10px;
+  font-family: 'Google Sans', Roboto, sans-serif;
   border-bottom: 2px solid #e8f0fe;
 }
 
@@ -299,10 +299,10 @@ onMounted(() => {
 
 .progress-bar {
   height: 8px;
+  margin-bottom: 10px;
+  overflow: hidden;
   background-color: #e8eaed;
   border-radius: 4px;
-  overflow: hidden;
-  margin-bottom: 10px;
 }
 
 .progress-fill {
@@ -313,77 +313,77 @@ onMounted(() => {
 }
 
 .progress-text {
-  font-size: 14px;
   color: #5f6368;
+  font-size: 14px;
   text-align: center;
 }
 
 /* Section content styling */
 .section-content {
+  margin-bottom: 30px;
+  padding: 30px;
   background: #fafafa;
   border-radius: 12px;
-  padding: 30px;
-  margin-bottom: 30px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 10%);
 }
 
 .experiment-content :deep(p) {
   margin-bottom: 16px;
-  line-height: 1.7em;
   color: #3c4043;
+  line-height: 1.7em;
 }
 
 .experiment-content :deep(strong) {
-  font-weight: 500;
   color: #202124;
+  font-weight: 500;
 }
 
 .experiment-content :deep(em) {
-  font-style: italic;
   color: #5f6368;
+  font-style: italic;
 }
 
 /* Quote blocks */
 .experiment-content :deep(.quote-block) {
-  font-family: 'Georgia', serif;
-  font-size: 20px;
-  font-style: italic;
-  color: #1a73e8;
-  background: #e8f0fe;
-  padding: 20px 25px;
   margin: 20px 0;
+  padding: 20px 25px;
+  color: #1a73e8;
+  font-size: 20px;
+  font-family: Georgia, serif;
+  font-style: italic;
+  background: #e8f0fe;
   border-left: 4px solid #1a73e8;
   border-radius: 0 8px 8px 0;
 }
 
 /* Highlight text */
 .experiment-content :deep(.highlight-text) {
-  background: linear-gradient(120deg, #fef7e0 0%, #fef7e0 100%);
-  padding: 15px 20px;
-  border-radius: 8px;
-  font-weight: 400;
-  color: #856404;
-  border-left: 4px solid #ffc107;
   margin: 20px 0;
+  padding: 15px 20px;
+  color: #856404;
+  font-weight: 400;
+  background: linear-gradient(120deg, #fef7e0 0%, #fef7e0 100%);
+  border-left: 4px solid #ffc107;
+  border-radius: 8px;
 }
 
 /* Concern box */
 .experiment-content :deep(.concern-box) {
+  margin: 25px 0;
+  padding: 20px 25px;
   background: #fce8e6;
   border: 1px solid #f5c6cb;
   border-left: 4px solid #ea4335;
   border-radius: 0 8px 8px 0;
-  padding: 20px 25px;
-  margin: 25px 0;
 }
 
 .experiment-content :deep(.concern-box h4) {
-  color: #c5221f;
-  font-family: 'Google Sans', 'Roboto', sans-serif;
-  font-size: 18px;
-  font-weight: 500;
-  margin-bottom: 12px;
   margin-top: 0;
+  margin-bottom: 12px;
+  color: #c5221f;
+  font-weight: 500;
+  font-size: 18px;
+  font-family: 'Google Sans', Roboto, sans-serif;
 }
 
 .experiment-content :deep(.concern-box p) {
@@ -397,21 +397,21 @@ onMounted(() => {
 
 /* Example box */
 .experiment-content :deep(.example-box) {
+  margin: 25px 0;
+  padding: 20px 25px;
   background: #e6f4ea;
   border: 1px solid #ceead6;
   border-left: 4px solid #34a853;
   border-radius: 0 8px 8px 0;
-  padding: 20px 25px;
-  margin: 25px 0;
 }
 
 .experiment-content :deep(.example-box h4) {
-  color: #137333;
-  font-family: 'Google Sans', 'Roboto', sans-serif;
-  font-size: 18px;
-  font-weight: 500;
-  margin-bottom: 12px;
   margin-top: 0;
+  margin-bottom: 12px;
+  color: #137333;
+  font-weight: 500;
+  font-size: 18px;
+  font-family: 'Google Sans', Roboto, sans-serif;
 }
 
 .experiment-content :deep(.example-box p) {
@@ -425,21 +425,21 @@ onMounted(() => {
 
 /* Future box */
 .experiment-content :deep(.future-box) {
+  margin: 25px 0;
+  padding: 20px 25px;
   background: #e8f0fe;
   border: 1px solid #d2e3fc;
   border-left: 4px solid #1a73e8;
   border-radius: 0 8px 8px 0;
-  padding: 20px 25px;
-  margin: 25px 0;
 }
 
 .experiment-content :deep(.future-box h4) {
-  color: #1967d2;
-  font-family: 'Google Sans', 'Roboto', sans-serif;
-  font-size: 18px;
-  font-weight: 500;
-  margin-bottom: 12px;
   margin-top: 0;
+  margin-bottom: 12px;
+  color: #1967d2;
+  font-weight: 500;
+  font-size: 18px;
+  font-family: 'Google Sans', Roboto, sans-serif;
 }
 
 .experiment-content :deep(.future-box p) {
@@ -453,43 +453,43 @@ onMounted(() => {
 
 /* Response section */
 .response-section {
+  margin-bottom: 25px;
+  padding: 25px;
   background: #fff;
   border: 1px solid #dadce0;
   border-radius: 12px;
-  padding: 25px;
-  margin-bottom: 25px;
 }
 
 .response-label {
   display: block;
-  font-family: 'Google Sans', 'Roboto', sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  color: #202124;
   margin-bottom: 12px;
+  color: #202124;
+  font-weight: 500;
+  font-size: 16px;
+  font-family: 'Google Sans', Roboto, sans-serif;
 }
 
 .response-textarea {
+  box-sizing: border-box;
   width: 100%;
   min-height: 120px;
   padding: 15px;
-  font-family: 'Roboto', sans-serif;
-  font-size: 15px;
-  line-height: 1.5em;
   color: #3c4043;
+  font-size: 15px;
+  font-family: Roboto, sans-serif;
+  line-height: 1.5em;
   background: #f8f9fa;
   border: 1px solid #dadce0;
   border-radius: 8px;
-  resize: vertical;
   transition: border-color 0.2s, box-shadow 0.2s;
-  box-sizing: border-box;
+  resize: vertical;
 }
 
 .response-textarea:focus {
-  outline: none;
-  border-color: #1a73e8;
-  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
   background: #fff;
+  border-color: #1a73e8;
+  outline: none;
+  box-shadow: 0 0 0 2px rgb(26 115 232 / 20%);
 }
 
 .response-textarea::placeholder {
@@ -497,10 +497,10 @@ onMounted(() => {
 }
 
 .response-warning {
-  font-size: 13px;
-  color: #ea4335;
   margin-top: 8px;
   margin-bottom: 0;
+  color: #ea4335;
+  font-size: 13px;
 }
 
 /* Navigation */
@@ -511,10 +511,10 @@ onMounted(() => {
 }
 
 .nav-button {
-  font-family: 'Google Sans', 'Roboto', sans-serif;
-  font-size: 16px;
-  font-weight: 500;
   padding: 14px 32px;
+  font-weight: 500;
+  font-size: 16px;
+  font-family: 'Google Sans', Roboto, sans-serif;
   border: none;
   border-radius: 24px;
   cursor: pointer;
@@ -522,75 +522,75 @@ onMounted(() => {
 }
 
 .nav-button-continue {
-  background: #1a73e8;
   color: white;
+  background: #1a73e8;
 }
 
 .nav-button-continue:hover:not(:disabled) {
   background: #1557b0;
-  box-shadow: 0 2px 8px rgba(26, 115, 232, 0.4);
+  box-shadow: 0 2px 8px rgb(26 115 232 / 40%);
 }
 
 .nav-button:disabled {
-  background: #dadce0;
   color: #9aa0a6;
+  background: #dadce0;
   cursor: not-allowed;
 }
 
 /* Completion page */
 .completion-page {
-  min-height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 80vh;
 }
 
 .completion-wrapper {
-  text-align: center;
   padding: 60px 40px;
+  text-align: center;
   background: linear-gradient(135deg, #e8f0fe 0%, #e6f4ea 100%);
   border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgb(0 0 0 / 10%);
 }
 
 .completion-title {
-  font-family: 'Google Sans', 'Roboto', sans-serif;
-  font-size: 42px;
-  font-weight: 400;
-  color: #34a853;
   margin-bottom: 20px;
+  color: #34a853;
+  font-weight: 400;
+  font-size: 42px;
+  font-family: 'Google Sans', Roboto, sans-serif;
 }
 
 .completion-message {
-  font-size: 18px;
-  color: #5f6368;
   margin-bottom: 15px;
+  color: #5f6368;
+  font-size: 18px;
 }
 
 .completion-code-display {
   display: inline-block;
-  font-family: 'Roboto Mono', monospace;
-  font-size: 28px;
-  font-weight: 500;
-  color: #1a73e8;
-  background: white;
   padding: 15px 30px;
-  border-radius: 12px;
-  border: 2px solid #1a73e8;
+  color: #1a73e8;
+  font-weight: 500;
+  font-size: 28px;
+  font-family: 'Roboto Mono', monospace;
   letter-spacing: 2px;
+  background: white;
+  border: 2px solid #1a73e8;
+  border-radius: 12px;
 }
 
 .completion-instructions {
-  font-size: 16px;
-  color: #5f6368;
   margin-top: 25px;
+  color: #5f6368;
+  font-size: 16px;
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .text-explanation-experiment {
-    padding: 0 15px;
     margin-top: 10px;
+    padding: 0 15px;
   }
 
   .headline {
@@ -614,8 +614,8 @@ onMounted(() => {
   }
 
   .completion-code-display {
-    font-size: 20px;
     padding: 12px 20px;
+    font-size: 20px;
   }
 }
 </style>
