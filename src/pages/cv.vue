@@ -95,6 +95,7 @@ const publications = {
 };
 
 const grants = [
+  '2026-2029 USD $488,272 Co-PI (Awarded) - Luxembourg CyberHub Research Grant, Lead researcher and grant author on a project to integrate modern generative AI methods of agentic LLMs into a anti-phishing web browser. Title: BeeAgent Sovereign, Browser-side Defence against AI-Generated Multimodal Social Engineering',
   '2024-2025 - $180,000 Co-PI (Invited Presentation). Carnegie Bosch Institute Postdoctoral Research Grant: "Improving Cyber Defense Against Foundation Models with Cognitive Models." Introduced a framework for integrating foundation models with cognitive modeling to mitigate adversarial misuse.',
   '2023-2024 - $20,000 PI (Awarded). Microsoft Accelerating Foundation Models Research Grant: "Personalized Education with Foundation Models via Cognitive Modeling." Led a study on human educational tools using ChatGPT and cognitive modeling, supported by Azure credits.',
   '2024-2025 - $180,000 Co-PI (Applied). Oak Ridge Institute for Science and Education Postdoctoral Fellowship: "Applying Cognitive Models and Generative Artificial Intelligence to Counter Automated Online Influence Campaigns." Proposed defenses against influence operations that leverage generative models.',

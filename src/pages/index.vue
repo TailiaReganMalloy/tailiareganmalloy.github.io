@@ -45,7 +45,7 @@ defineOptions({
       <div class="max-w-3xl mx-auto text-center">
         <h1 class="text-3xl font-semibold">About</h1>
         <p class="mt-6 text-gray-600 dark:text-gray-300 leading-relaxed">
-          Hello! My name is Tailia Malloy. I am a researcher in human and machine learning. I am currently a postdoctoral researcher at the University of Luxembourg working under the advisement of <a href="https://scholar.google.com/citations?user=t73Mqm8AAAAJ&hl=en&oi=ao" target="_blank" rel="noopener" class="text-blue-600 hover:underline"> Professor Tegawendé F. Bissyandé</a> studying Human-Computer Interaction with a focus on LLM applications in software engineering and social engineering. 
+          Hello! My name is Tailia Malloy. I am a researcher in human and machine learning. I am currently a research associate at the University of Luxembourg working under the advisement of <a href="https://scholar.google.com/citations?user=t73Mqm8AAAAJ&hl=en&oi=ao" target="_blank" rel="noopener" class="text-blue-600 hover:underline"> Professor Tegawendé F. Bissyandé</a> studying Human-Computer Interaction with a focus on LLM applications in software engineering and social engineering. Prior to my position at UniLu I worked with Professor Cleotilde Gonzalez in the Dynamic Decision Making labratory at Carnegie Mellon University where I researched models of human decision making that incorporated Generative Aritifical Intelligence. 
         </p>
       </div>
     </section>
